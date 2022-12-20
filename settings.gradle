@@ -5,8 +5,10 @@ pluginManagement {
         mavenCentral()
     }
 }
+
+// weird configuration with gradle 7.* check discord note & resources to see
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS))
     repositories {
         google()
         mavenCentral()
