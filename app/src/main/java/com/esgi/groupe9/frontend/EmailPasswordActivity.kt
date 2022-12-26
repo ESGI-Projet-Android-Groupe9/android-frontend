@@ -1,4 +1,4 @@
-//package com.esgi.groupe9.frontend
+package com.esgi.groupe9.frontend
 //
 //import android.app.Activity
 //import android.os.Bundle
