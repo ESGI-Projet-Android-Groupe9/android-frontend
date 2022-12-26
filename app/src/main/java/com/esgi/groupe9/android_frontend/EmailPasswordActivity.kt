@@ -1,7 +1,6 @@
 package com.esgi.groupe9.android_frontend
 
 import android.app.Activity
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -58,5 +57,9 @@ class EmailPasswordActivity : Activity() {
 
     private fun reload() {
         // TODO : implement the logic for the user who have been rejected
+    }
+
+    companion object {
+        private const val TAG = "EmailPassword"
     }
 }
