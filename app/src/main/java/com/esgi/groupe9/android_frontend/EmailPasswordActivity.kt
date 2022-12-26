@@ -15,4 +15,18 @@ class EmailPasswordActivity : Activity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
     }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in
+        val currentUser = auth.currentUser
+        // if he's not do reload
+        if (currentUser != null) {
+            reload();
+        }
+    }
+
+    private fun reload() {
+        // TODO : implement the logic for the user who have been rejected
+    }
 }
