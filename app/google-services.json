@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "376971260105",
+    "project_id": "my-steam-app-abe55",
+    "storage_bucket": "my-steam-app-abe55.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376971260105:android:b953f4a1c37058985fdd18",
+        "android_client_info": {
+          "package_name": "com.esgi.groupe9.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376971260105-dei2504cf8m8elkodhh0lglptdl11fqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlb7kK17GGwLXsr3sSjI2Gi9z43EZ5HG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376971260105-dei2504cf8m8elkodhh0lglptdl11fqj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

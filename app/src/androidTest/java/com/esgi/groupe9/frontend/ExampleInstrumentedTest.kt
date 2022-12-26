@@ -1,4 +1,4 @@
-package com.esgi.groupe9.android_frontend
+package com.esgi.groupe9.frontend
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

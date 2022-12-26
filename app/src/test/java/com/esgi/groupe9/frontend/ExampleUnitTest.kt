@@ -1,4 +1,4 @@
-package com.esgi.groupe9.android_frontend
+package com.esgi.groupe9.frontend
 
 import org.junit.Test
 
