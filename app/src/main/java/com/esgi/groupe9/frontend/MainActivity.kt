@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                         val user = auth.currentUser
+                        setContentView(R.layout.mainactivity)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("EmailPassword", "signInWithEmail:failure", task.exception)
