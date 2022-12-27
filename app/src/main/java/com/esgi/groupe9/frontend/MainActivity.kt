@@ -2,7 +2,9 @@ package com.esgi.groupe9.frontend
 
 import android.os.Bundle
 import android.util.Log
+import android.util.Log.WARN
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -19,11 +21,12 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
         setContentView(R.layout.login)
 
-        val email = "sacha.mouchon@gmail.com"
-        val password = "totoisthebest"
         val login_button = findViewById<Button>(R.id.login_button)
 
         login_button.setOnClickListener {
+            val email = findViewById<EditText>(R.id.email_text).text.toString()
+            val password = findViewById<EditText>(R.id.password_text).text.toString()
+
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
