@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:376971260105:android:b953f4a1c37058985fdd18",
+        "mobilesdk_app_id": "1:376971260105:android:8491ffdd7186667e5fdd18",
         "android_client_info": {
-          "package_name": "com.esgi.groupe9.android_frontend"
+          "package_name": "com.esgi.groupe9.frontend"
         }
       },
       "oauth_client": [
