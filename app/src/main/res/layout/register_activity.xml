@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#1A2026">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp"/>
+
+    <TextView
+        android:id="@+id/register_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:text="Inscription"
+        android:paddingTop="50dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+        app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
+
+    <TextView
+        android:id="@+id/register_text"
+        android:layout_width="wrap_content"
+        android:layout_height="55sp"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:text="Veuillez saisir ces différentes informations,\nafin que vos listes soient sauvegardées."
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/register_title"
+        app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+        app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
+
+    <EditText
+        android:id="@+id/username_input_register"
+        android:layout_width="320dp"
+        android:layout_height="40sp"
+        android:textColor="@color/white"
+        android:background="#1E262C"
+        android:hint="Nom d'utilisateur"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/register_text"
+        app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+        app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
+    <EditText
+        android:id="@+id/email_input_register"
+        android:layout_width="320dp"
+        android:layout_height="40sp"
+        android:textColor="@color/white"
+        android:background="#1E262C"
+        android:hint="E-mail"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/username_input_register"
+        app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+        app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
+    <EditText
+        android:id="@+id/password_input_register"
+        android:layout_width="320dp"
+        android:layout_height="40sp"
+        android:textColor="@color/white"
+        android:background="#1E262C"
+        android:inputType="text"
+        android:hint="Mot de passe"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/email_input_register"
+        app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+        app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
+    <EditText
+        android:id="@+id/confirm_password_input_register"
+        android:layout_width="320dp"
+        android:layout_height="40sp"
+        android:textColor="@color/white"
+        android:background="#1E262C"
+        android:inputType="text"
+        android:hint="Vérification de Mot de passe"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/password_input_register"
+        app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+        app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
+    <Button
+        android:id="@+id/create_account_button"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:textColor="@color/white"
+        android:background="#636af6"
+        android:text="Créer un nouveau compte"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/confirm_password_input_register"
+        app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+        app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
+
+    <Button
+        android:id="@+id/return_login_page"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:background="#636af6"
+        android:textColor="@color/white"
+        android:text="Retour"
+        android:gravity="center"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+        app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
