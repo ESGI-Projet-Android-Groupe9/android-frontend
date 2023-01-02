@@ -21,7 +21,7 @@
         app:layout_constraintGuide_end="20dp"/>
 
     <TextView
-        android:id="@+id/welcome_text_title"
+        android:id="@+id/login_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
@@ -35,19 +35,19 @@
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
 
     <TextView
-        android:id="@+id/welcome_text"
+        android:id="@+id/login_text"
         android:layout_width="wrap_content"
         android:layout_height="55sp"
         android:textSize="15sp"
         android:textColor="@color/white"
         android:text="Veuillez vous connecter ou\ncréer un nouveau compte\nPour utiliser l'application"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/welcome_text_title"
+        app:layout_constraintTop_toBottomOf="@id/login_title"
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
 
     <EditText
-        android:id="@+id/email_text"
+        android:id="@+id/email_input_login"
         android:layout_width="320dp"
         android:layout_height="40sp"
         android:textColor="@color/white"
@@ -57,11 +57,11 @@
         android:inputType="textEmailAddress"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/welcome_text"
+        app:layout_constraintTop_toBottomOf="@id/login_text"
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
     <EditText
-        android:id="@+id/password_text"
+        android:id="@+id/password_input_login"
         android:layout_width="320dp"
         android:layout_height="40sp"
         android:textColor="@color/white"
@@ -71,7 +71,7 @@
         android:textColorHint="@color/white"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/email_text"
+        app:layout_constraintTop_toBottomOf="@id/email_input_login"
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
     <Button
@@ -83,11 +83,11 @@
         android:text="Se connecter"
         android:layout_marginTop="60dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/password_text"
+        app:layout_constraintTop_toBottomOf="@id/password_input_login"
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
     <Button
-        android:id="@+id/signup_button"
+        android:id="@+id/register_button"
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:textColor="@color/white"
@@ -99,7 +99,7 @@
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
     <TextView
-        android:id="@+id/forgot_password_link"
+        android:id="@+id/forgot_password_button"
         android:layout_width="wrap_content"
         android:layout_height="50sp"
         android:textColor="@color/white"

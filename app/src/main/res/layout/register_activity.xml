@@ -21,7 +21,7 @@
         app:layout_constraintGuide_end="20dp"/>
 
     <TextView
-        android:id="@+id/signup_text_title"
+        android:id="@+id/register_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
@@ -35,19 +35,19 @@
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
 
     <TextView
-        android:id="@+id/signup_text"
+        android:id="@+id/register_text"
         android:layout_width="wrap_content"
         android:layout_height="55sp"
         android:textSize="15sp"
         android:textColor="@color/white"
         android:text="Veuillez saisir ces différentes informations,\nafin que vos listes soient sauvegardées."
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/signup_text_title"
+        app:layout_constraintTop_toBottomOf="@id/register_title"
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
 
     <EditText
-        android:id="@+id/username_text_register"
+        android:id="@+id/username_input_register"
         android:layout_width="320dp"
         android:layout_height="40sp"
         android:textColor="@color/white"
@@ -57,11 +57,11 @@
         android:inputType="textEmailAddress"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/signup_text"
+        app:layout_constraintTop_toBottomOf="@id/register_text"
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
     <EditText
-        android:id="@+id/email_text_register"
+        android:id="@+id/email_input_register"
         android:layout_width="320dp"
         android:layout_height="40sp"
         android:textColor="@color/white"
@@ -71,11 +71,11 @@
         android:inputType="textEmailAddress"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/username_text_register"
+        app:layout_constraintTop_toBottomOf="@id/username_input_register"
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
     <EditText
-        android:id="@+id/password_text_register"
+        android:id="@+id/password_input_register"
         android:layout_width="320dp"
         android:layout_height="40sp"
         android:textColor="@color/white"
@@ -85,11 +85,11 @@
         android:textColorHint="@color/white"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/email_text_register"
+        app:layout_constraintTop_toBottomOf="@id/email_input_register"
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
     <EditText
-        android:id="@+id/confirm_password_text_register"
+        android:id="@+id/confirm_password_input_register"
         android:layout_width="320dp"
         android:layout_height="40sp"
         android:textColor="@color/white"
@@ -99,11 +99,11 @@
         android:textColorHint="@color/white"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/password_text_register"
+        app:layout_constraintTop_toBottomOf="@id/password_input_register"
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
     <Button
-        android:id="@+id/signup_button_register"
+        android:id="@+id/create_account_button"
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:textColor="@color/white"
@@ -111,12 +111,12 @@
         android:text="Créer un nouveau compte"
         android:layout_marginTop="60dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/confirm_password_text_register"
+        app:layout_constraintTop_toBottomOf="@id/confirm_password_input_register"
         app:layout_constraintLeft_toRightOf="@id/guidelineStart"
         app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
 
     <Button
-        android:id="@+id/return_login_button"
+        android:id="@+id/return_login_page"
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:background="#636af6"
