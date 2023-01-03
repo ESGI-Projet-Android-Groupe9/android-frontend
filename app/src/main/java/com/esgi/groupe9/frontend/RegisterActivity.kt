@@ -7,6 +7,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +25,8 @@ class RegisterActivity : AppCompatActivity() {
             val username = findViewById<EditText>(R.id.username_input_register).text.toString()
             val email = findViewById<EditText>(R.id.email_input_register).text.toString()
             val password = findViewById<EditText>(R.id.password_input_register).text.toString()
-            val confirmPassword = findViewById<EditText>(R.id.confirm_password_input_register).text.toString()
+            val confirmPassword =
+                findViewById<EditText>(R.id.confirm_password_input_register).text.toString()
 
             when {
                 email.isEmpty() && password.isNotEmpty() -> {
@@ -59,6 +62,7 @@ class RegisterActivity : AppCompatActivity() {
                         "RegisterActivity",
                         "Successfully created user with the UserID : ${it.result.user?.uid}"
                     )
+                    saveUserToDatabase()
                 }
                 .addOnFailureListener {
                     Log.d("RegisterActivity", "Failed to create user due to : ${it.message}")
@@ -77,5 +81,21 @@ class RegisterActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             finish()
         }
+    }
+
+    private fun saveUserToDatabase() {
+        val firebaseStorage = Firebase.firestore
+        val username: String = findViewById<EditText>(R.id.username_input_register).text.toString()
+        val userId: String = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        val user = User(userId, username)
+        firebaseStorage.collection("users")
+            .add(user)
+            .addOnCompleteListener{ idDocument ->
+                Log.d("RegisterActivity", "User has been inserted in db with the id : $idDocument")
+            }
+            .addOnFailureListener{ error ->
+                Log.w("RegisterActivity","User has not been inserted in db because of ${error.message}")
+            }
+
     }
 }
