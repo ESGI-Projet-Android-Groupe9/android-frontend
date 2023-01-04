@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -15,6 +16,7 @@ class LoginActivity : AppCompatActivity() {
 
         signInUser()
         goOnRegisterPage()
+        goOnForgotPasswordPage()
     }
 
     private fun signInUser() {
@@ -71,6 +73,14 @@ class LoginActivity : AppCompatActivity() {
         val registerButton = findViewById<Button>(R.id.register_button)
         registerButton.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun goOnForgotPasswordPage() {
+        val forgotLinkPassword = findViewById<TextView>(R.id.forgot_password_link)
+        forgotLinkPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
         }
     }
