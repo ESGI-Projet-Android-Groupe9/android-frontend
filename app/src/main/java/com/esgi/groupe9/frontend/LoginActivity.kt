@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             Log.d("LoginActivity", "Attempt login with Email : $email")
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+            Constants.FIREBASE_AUTH.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     // TODO : check the successfully of this, on the next video of kotlin messenger
                     if (!it.isSuccessful) return@addOnCompleteListener

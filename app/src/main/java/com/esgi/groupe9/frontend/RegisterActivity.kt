@@ -53,20 +53,20 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             /* TODO :
-                implement logic to check the equality between password and confirm Password
-                if it's not, set the colorText to red and set the create button to disable.
+                implement logic to check the equality between password and confirm Password and for all
+                the others fields if it's not, set the colorText to red and set the create button to disable.
             */
 
             Log.d("RegisterActivity", "Try to register a User to the Firebase Authentication")
             Constants.FIREBASE_AUTH.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
-                    val userId = Constants.FIREBASE_AUTH.uid.toString()
+                    val userId = it.result.user?.uid.toString();
                     if (!it.isSuccessful) return@addOnCompleteListener
                     Log.d(
                         "RegisterActivity",
                         "Successfully created user with the UserID : ${it.result.user?.uid}"
                     )
-                    if (!checkIfUserExists(userId, username)) saveUserToDatabase()
+                    saveUserToDatabase(userId)
                 }
                 .addOnFailureListener {
                     Log.d("RegisterActivity", "Failed to create user due to : ${it.message}")
@@ -80,60 +80,31 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun goOnLoginPage() {
-        val backButton = findViewById<Button>(R.id.return_login_page)
-        backButton.setOnClickListener {
-            finish()
-        }
-    }
-
-    private fun saveUserToDatabase() {
+    private fun saveUserToDatabase(userId: String) {
         val username: String = findViewById<EditText>(R.id.username_input_register).text.toString()
-        val userId: String = Constants.FIREBASE_AUTH.currentUser?.uid.toString()
-        val user = User(userId, username)
+        val email: String = findViewById<EditText>(R.id.email_input_register).text.toString()
+        val user = User(userId, username, email)
 
+        Log.d("RegisterActivity", "Try to add a User to the FireStore Database")
         Constants.FIREBASE_FIRESTORE.collection("users")
             .add(user)
             .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
-                Log.d("RegisterActivity", "User has been inserted in db with the id : $userId")
-                Toast.makeText(
-                    this,
-                    "Successfully insert user in database with the UserID : $userId",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
+                Log.d("RegisterActivity", "User has been inserted in database with the id : $userId")
             }
             .addOnFailureListener {
                 Log.w(
                     "RegisterActivity",
                     "User has not been inserted in db because of ${it.message}"
                 )
-                Toast.makeText(
-                    this,
-                    "Failed to insert user in database due to : ${it.message}",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
             }
 
     }
 
-    private fun checkIfUserExists(userId: String, username: String): Boolean {
-        var exists = false;
-        val user = User(userId, username);
-        Constants.FIREBASE_FIRESTORE.collection("users")
-            .whereEqualTo("user", user)
-            .get()
-            .addOnCompleteListener {
-                if (!it.isSuccessful) return@addOnCompleteListener
-                Log.d("RegisterActivity", "The user already exists with this ID : $userId")
-                exists = true
-            }
-            .addOnFailureListener {
-                Log.d("RegisterActivity", "The user doesn't exists with the ID : $userId")
-                exists = false
-            }
-        return exists
+    private fun goOnLoginPage() {
+        val backButton = findViewById<Button>(R.id.return_login_page)
+        backButton.setOnClickListener {
+            finish()
+        }
     }
 }
