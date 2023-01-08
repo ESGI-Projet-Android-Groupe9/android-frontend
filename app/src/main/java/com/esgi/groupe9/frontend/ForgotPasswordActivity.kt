@@ -12,6 +12,7 @@ import com.esgi.groupe9.frontend.utils.Constants
 import java.util.*
 
 class ForgotPasswordActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
@@ -21,8 +22,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
     private fun resetPassword() {
         val resetPasswordButton = findViewById<Button>(R.id.forgot_password_button)
+
         resetPasswordButton.setOnClickListener {
             val email = findViewById<EditText>(R.id.forgot_password_email_input).text.toString()
+
+            if (!checkInputForgot(email)) return@setOnClickListener
+
             Log.d("ForgotPasswordActivity", "Try to send an email for reset password to the User")
             Constants.FIREBASE_AUTH.sendPasswordResetEmail(email)
                 .addOnCompleteListener {
@@ -38,11 +43,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         )
                         .show()
-                    Handler().postDelayed({
-                        val intent = Intent(this, LoginActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                    }, 2000)
+                    redirectOnLogin()
                 }
                 .addOnFailureListener {
                     Log.d(
@@ -60,7 +61,25 @@ class ForgotPasswordActivity : AppCompatActivity() {
         }
     }
 
-    private fun Timer.schedule(i: Int, function: () -> Unit) {}
+    private fun checkInputForgot(email: String): Boolean {
+        when {
+            email.isEmpty() -> {
+                Toast
+                    .makeText(this, "Please fill the email input text", Toast.LENGTH_SHORT)
+                    .show()
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun redirectOnLogin() {
+        Handler().postDelayed({
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }, 2000)
+    }
 }
 
 

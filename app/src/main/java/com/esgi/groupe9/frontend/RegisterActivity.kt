@@ -3,6 +3,7 @@ package com.esgi.groupe9.frontend
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -15,6 +16,7 @@ import com.esgi.groupe9.frontend.entity.User
 import com.esgi.groupe9.frontend.utils.Constants
 
 class RegisterActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -24,9 +26,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun signUpUser() {
+        val registerButton = findViewById<Button>(R.id.create_account_button)
+
         checkPasswordEquality()
 
-        val registerButton = findViewById<Button>(R.id.create_account_button)
         registerButton.setOnClickListener {
             val username = findViewById<EditText>(R.id.username_input_register).text.toString()
             val email = findViewById<EditText>(R.id.email_input_register).text.toString()
@@ -44,6 +47,7 @@ class RegisterActivity : AppCompatActivity() {
                         "Successfully created user with the UserID : ${it.result.user?.uid}"
                     )
                     saveUserToDatabase(userId)
+                    redirectOnLogin()
                 }
                 .addOnFailureListener {
                     Log.d("RegisterActivity", "Failed to create user due to : ${it.message}")
@@ -115,23 +119,21 @@ class RegisterActivity : AppCompatActivity() {
                     .show()
                 return false
             }
-            email.isEmpty() && password.isEmpty() && username.isNotEmpty() -> {
-                Toast
-                    .makeText(this, "Please fill email & password input text", Toast.LENGTH_SHORT)
-                    .show()
-                return false
-            }
             email.isEmpty() && password.isEmpty() && username.isEmpty() -> {
                 Toast
                     .makeText(this, "Please fill all input text", Toast.LENGTH_SHORT)
                     .show()
                 return false
             }
+            email.isEmpty() && password.isEmpty() -> {
+                Toast
+                    .makeText(this, "Email & Password are required to create account", Toast.LENGTH_SHORT)
+                    .show()
+                return false
+            }
         }
         return true
     }
-
-
 
     private fun goOnLoginPage() {
         val backButton = findViewById<Button>(R.id.return_login_page)
@@ -140,6 +142,14 @@ class RegisterActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
+    }
+
+    private fun redirectOnLogin() {
+        Handler().postDelayed({
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }, 2000)
     }
 }
 
