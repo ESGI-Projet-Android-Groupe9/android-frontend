@@ -1,4 +1,4 @@
-package com.esgi.groupe9.frontend
+package com.esgi.groupe9.frontend.utils
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore

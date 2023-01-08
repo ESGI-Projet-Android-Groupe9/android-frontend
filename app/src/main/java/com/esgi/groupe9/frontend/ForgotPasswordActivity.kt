@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.esgi.groupe9.frontend.utils.Constants
 import java.util.*
 
 class ForgotPasswordActivity : AppCompatActivity() {
@@ -30,10 +31,16 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         "ForgotPasswordActivity",
                         "Successfully send email to the user with the email : $email"
                     )
-                    // i wait 2 seconds after i redirect the user to the login page
+                    Toast
+                        .makeText(
+                            this,
+                            "Successfully send email to the user with the email : $email",
+                            Toast.LENGTH_SHORT
+                        )
+                        .show()
                     Handler().postDelayed({
                         val intent = Intent(this, LoginActivity::class.java)
-                        // TODO : need to clear the TAG on this page before startActivity
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
                     }, 2000)
                 }
