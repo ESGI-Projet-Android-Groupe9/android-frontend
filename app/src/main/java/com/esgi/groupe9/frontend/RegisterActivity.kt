@@ -95,8 +95,13 @@ class RegisterActivity : AppCompatActivity() {
                 registerButton.isEnabled = true
                 registerButton.background.alpha = 255
                 registerButton.setTextColor(Color.WHITE)
+            } else {
+                registerButton.isEnabled = false
+                registerButton.background.alpha = 100
+                registerButton.setTextColor(Color.GRAY)
             }
         }
+        // TODO: check when the password has been changed after the equality of both input
     }
 
     private fun checkInputRegister(email: String, password: String, username: String): Boolean {
