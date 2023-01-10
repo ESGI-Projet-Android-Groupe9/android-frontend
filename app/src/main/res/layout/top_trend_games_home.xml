@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/best_image_background_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/man_titan_image"
+        android:scaleType="centerCrop"
+        tools:ignore="MissingConstraints"/>
+
+    <ImageView
+        android:id="@+id/best_game_image_home"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/titanfall_2_ps4"
+        app:layout_constraintBottom_toBottomOf="@id/best_image_background_home"
+        app:layout_constraintRight_toRightOf="@id/best_image_background_home" />
+
+    <Button
+        android:id="@+id/know_more"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
+        android:background="@color/purple_500"
+        android:text="@string/know_more"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="@id/best_image_background_home"
+        app:layout_constraintBottom_toBottomOf="@id/best_image_background_home"/>
+
+    <TextView
+        android:id="@+id/game_name_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:text="@string/game_name"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/game_short_description_home"
+        tools:ignore="MissingConstraints"/>
+
+    <TextView
+        android:id="@+id/game_short_description_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:textSize="10sp"
+        android:text="@string/short_game_description"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toTopOf="@id/know_more"
+        tools:ignore="MissingConstraints"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
