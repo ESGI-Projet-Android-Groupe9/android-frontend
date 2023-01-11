@@ -41,5 +41,6 @@ Et fuga placeat non cumque recusandae vel quia ipsa et natus voluptatibus eos no
     <string name="create_new_account">Créer un nouveau compte</string>
     <string name="know_more">En savoir plus</string>
     <string name="short_game_description">Une description d\'un jeu mis en avant (peu être fait en dur)</string>
+    <string name="back">Retour</string>
 
 </resources>
