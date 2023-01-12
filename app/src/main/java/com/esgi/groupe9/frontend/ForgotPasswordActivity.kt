@@ -1,15 +1,14 @@
 package com.esgi.groupe9.frontend
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.esgi.groupe9.frontend.utils.Constants
-import java.util.*
 
 class ForgotPasswordActivity : AppCompatActivity() {
 

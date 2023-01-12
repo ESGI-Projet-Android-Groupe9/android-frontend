@@ -5,13 +5,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
 import com.esgi.groupe9.frontend.entity.User
 import com.esgi.groupe9.frontend.utils.Constants
 
@@ -132,7 +130,11 @@ class RegisterActivity : AppCompatActivity() {
             }
             email.isEmpty() && password.isEmpty() -> {
                 Toast
-                    .makeText(this, "Email & Password are required to create account", Toast.LENGTH_SHORT)
+                    .makeText(
+                        this,
+                        "Email & Password are required to create account",
+                        Toast.LENGTH_SHORT
+                    )
                     .show()
                 return false
             }
