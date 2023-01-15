@@ -1,6 +1,7 @@
 package com.esgi.groupe9.frontend
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,22 +11,20 @@ import com.esgi.groupe9.frontend.utils.API
 import com.esgi.groupe9.frontend.utils.GameListAdapter
 import com.esgi.groupe9.frontend.utils.OnGameListener
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class HomeActivity : AppCompatActivity() {
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         
         // REAL DATA
         val api = Retrofit.Builder()
-            .baseUrl("http://localhost:3003/game")
+            .baseUrl("http://localhost:3003/game/")
             .addConverterFactory(
                 GsonConverterFactory.create()
             )
@@ -37,6 +36,7 @@ class HomeActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                Log.d("HomeActivity", "Try to launch the Recycle View with the data from the BFF")
                 val games = withContext(Dispatchers.IO)
                 { api.getGames().await() }
                 findViewById<RecyclerView>(R.id.games_list_view_home).apply {
@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
                     })
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.d("HomeActivity", "There is an error with the following message : ${e.message}")
             }
         }
     }
