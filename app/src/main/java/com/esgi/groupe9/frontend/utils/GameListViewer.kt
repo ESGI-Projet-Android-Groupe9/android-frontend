@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.esgi.groupe9.frontend.R
 import com.esgi.groupe9.frontend.entity.Game
 
@@ -47,6 +48,9 @@ class GameViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         gameName.text = game.name
         gameEditor.text = game.editor
         gamePrice.text = "Prix: ${game.price} €"
+        /* TODO: use Glide to insert the
+            url of the api response in the source of these images
+         */
         // update gameImage
         // update gameBackgroundImage
     }

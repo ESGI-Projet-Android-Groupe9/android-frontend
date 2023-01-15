@@ -1,5 +1,9 @@
 package com.esgi.groupe9.frontend.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Game(
     val name: String,
     val editor: String,
@@ -12,4 +16,4 @@ data class Game(
     val headerImage: String,
     val background: String,
     val backgroundRaw: String
-)
+) : Parcelable
