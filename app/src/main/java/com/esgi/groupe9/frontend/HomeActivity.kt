@@ -24,7 +24,7 @@ class HomeActivity : AppCompatActivity() {
         
         // REAL DATA
         val api = Retrofit.Builder()
-            .baseUrl("http://localhost:3003/game/")
+            .baseUrl("https://localhost:3003/game/")
             .addConverterFactory(
                 GsonConverterFactory.create()
             )
