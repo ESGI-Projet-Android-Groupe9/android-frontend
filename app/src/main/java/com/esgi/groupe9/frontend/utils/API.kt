@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface API {
 
-    @GET("todos")
+    @GET("/game")
     fun getGames(): Deferred<List<Game>>
 }

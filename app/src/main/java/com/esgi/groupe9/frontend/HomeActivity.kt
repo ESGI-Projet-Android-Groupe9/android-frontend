@@ -1,6 +1,8 @@
 package com.esgi.groupe9.frontend
 
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,16 +17,24 @@ import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
 class HomeActivity : AppCompatActivity() {
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        val policy = ThreadPolicy
+            .Builder()
+            .permitAll()
+            .build()
+        StrictMode
+            .setThreadPolicy(policy)
         
         // REAL DATA
         val api = Retrofit.Builder()
-            .baseUrl("https://localhost:3003/game/")
+            .baseUrl("http://10.0.2.2:3003/")
             .addConverterFactory(
                 GsonConverterFactory.create()
             )
