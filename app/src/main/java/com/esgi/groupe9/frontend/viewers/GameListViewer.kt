@@ -41,9 +41,9 @@ class GameViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     private val gameEditor = v.findViewById<TextView>(R.id.game_editor_item_list)
     private val gamePrice = v.findViewById<TextView>(R.id.game_price_item_list)
     private val gameImage =
-        v.findViewById<ImageView>(R.id.game_image_item_list) // TODO: implement bellow
+        v.findViewById<ImageView>(R.id.game_image_item_list)
     private val gameBackgroundImage =
-        v.findViewById<ImageView>(R.id.game_background_item_list) // TODO: implement bellow
+        v.findViewById<ImageView>(R.id.game_background_item_list)
 
     @SuppressLint("SetTextI18n")
     fun updateGame(game: Game) {

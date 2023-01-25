@@ -27,12 +27,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
             if (!checkInputForgot(email)) return@setOnClickListener
 
-            Log.d("ForgotPasswordActivity", "Try to send an email for reset password to the User")
+            Log.d(TAG, "Try to send an email for reset password to the User")
             Constants.FIREBASE_AUTH.sendPasswordResetEmail(email)
                 .addOnCompleteListener {
                     if (!it.isSuccessful) return@addOnCompleteListener
                     Log.d(
-                        "ForgotPasswordActivity",
+                        TAG,
                         "Successfully send email to the user with the email : $email"
                     )
                     Toast
@@ -46,7 +46,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener {
                     Log.d(
-                        "ForgotPasswordActivity",
+                        TAG,
                         "Error while sending the email due to : ${it.message}"
                     )
                     Toast
@@ -78,6 +78,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }, 2000)
+    }
+
+    companion object {
+        private const val TAG: String = "ForgotPasswordActivity"
     }
 }
 

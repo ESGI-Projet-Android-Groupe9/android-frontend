@@ -34,10 +34,10 @@ class HomeActivity : AppCompatActivity() {
         Log.d(TAG, "Try to launch the Recycle View with the data from the BFF")
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val usersFromApi = withContext(Dispatchers.IO) { apiHelper.getGames() }
+                val gamesFromApi = withContext(Dispatchers.IO) { apiHelper.getGames() }
                 findViewById<RecyclerView>(R.id.games_list_view_home).apply {
                     layoutManager = LinearLayoutManager(this@HomeActivity)
-                    adapter = GameListAdapter(usersFromApi, object : OnGameListener {
+                    adapter = GameListAdapter(gamesFromApi, object : OnGameListener {
                         override fun onClicked(game: Game, position: Int) {
                             /* TODO: the logic to redirect the
                                 user to a detail page live right there */

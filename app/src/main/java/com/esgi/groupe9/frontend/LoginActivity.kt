@@ -34,13 +34,13 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (!it.isSuccessful) return@addOnCompleteListener
                     Log.d(
-                        "LoginActivity",
+                        TAG,
                         "Successfully login user with the UserID : ${it.result.user?.uid}"
                     )
                     goOnHomePage()
                 }
                 .addOnFailureListener {
-                    Log.d("LoginActivity", "Failed to login user due to : ${it.message}")
+                    Log.d(TAG, "Failed to login user due to : ${it.message}")
                     Toast.makeText(
                         this,
                         "Failed to login user due to : ${it.message}",
@@ -97,5 +97,9 @@ class LoginActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
+    }
+
+    companion object {
+        private const val TAG: String = "LoginActivity"
     }
 }
