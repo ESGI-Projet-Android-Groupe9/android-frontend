@@ -1,5 +1,6 @@
-package com.esgi.groupe9.frontend.utils
+package com.esgi.groupe9.frontend.viewers
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,15 +45,13 @@ class GameViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     private val gameBackgroundImage =
         v.findViewById<ImageView>(R.id.game_background_item_list) // TODO: implement bellow
 
+    @SuppressLint("SetTextI18n")
     fun updateGame(game: Game) {
         gameName.text = game.name
-        gameEditor.text = game.editor
+        gameEditor.text = game.editor[0]
         gamePrice.text = "Prix: ${game.price} €"
-        /* TODO: use Glide to insert the
-            url of the api response in the source of these images
-         */
-        // update gameImage
-        // update gameBackgroundImage
+        Glide.with(itemView).load(game.image).into(gameImage)
+        Glide.with(itemView).load(game.background).into(gameBackgroundImage)
     }
 }
 
