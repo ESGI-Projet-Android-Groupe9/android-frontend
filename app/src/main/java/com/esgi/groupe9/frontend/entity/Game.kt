@@ -1,15 +1,24 @@
 package com.esgi.groupe9.frontend.entity
 
+import com.google.gson.annotations.SerializedName
+
 data class Game(
+    @SerializedName("_gameId")
+    val id: Int,
+    @SerializedName("_name")
     val name: String,
-    val editor: String,
+    @SerializedName("_editor")
+    val editor: List<String>,
+    @SerializedName("_detailedDescription")
     val detailedDescription: String,
+    @SerializedName("_aboutTheGame")
     val aboutTheGame: String,
+    @SerializedName("_shortDescription")
     val shortDescription: String,
-    val price: Double,
+    @SerializedName("_price")
+    val price: Number,
+    @SerializedName("_headerImage")
     val image: String,
-    val thumbnail: String,
-    val headerImage: String,
+    @SerializedName("_background")
     val background: String,
-    val backgroundRaw: String
 )
