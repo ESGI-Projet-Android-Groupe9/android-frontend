@@ -5,13 +5,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
 import com.esgi.groupe9.frontend.entity.User
 import com.esgi.groupe9.frontend.utils.Constants
 
@@ -37,20 +35,20 @@ class RegisterActivity : AppCompatActivity() {
 
             if (!checkInputRegister(email, password, username)) return@setOnClickListener
 
-            Log.d("RegisterActivity", "Try to register a User to the Firebase Authentication")
+            Log.d(TAG, "Try to register a User to the Firebase Authentication")
             Constants.FIREBASE_AUTH.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (!it.isSuccessful) return@addOnCompleteListener
                     val userId = it.result.user?.uid.toString()
                     Log.d(
-                        "RegisterActivity",
+                        TAG,
                         "Successfully created user with the UserID : ${it.result.user?.uid}"
                     )
                     saveUserToDatabase(userId)
                     redirectOnLogin()
                 }
                 .addOnFailureListener {
-                    Log.d("RegisterActivity", "Failed to create user due to : ${it.message}")
+                    Log.d(TAG, "Failed to create user due to : ${it.message}")
                     Toast.makeText(
                         this,
                         "Failed to create user due to : ${it.message}",
@@ -67,19 +65,19 @@ class RegisterActivity : AppCompatActivity() {
         val email: String = findViewById<EditText>(R.id.email_input_register).text.toString()
         val user = User(userId, username, email)
 
-        Log.d("RegisterActivity", "Try to add a User to the FireStore Database")
+        Log.d(TAG, "Try to add a User to the FireStore Database")
         Constants.FIREBASE_FIRESTORE.collection("users")
             .add(user)
             .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
                 Log.d(
-                    "RegisterActivity",
+                    TAG,
                     "User has been inserted in database with the id : $userId"
                 )
             }
             .addOnFailureListener {
                 Log.w(
-                    "RegisterActivity",
+                    TAG,
                     "User has not been inserted in db because of ${it.message}"
                 )
             }
@@ -132,7 +130,11 @@ class RegisterActivity : AppCompatActivity() {
             }
             email.isEmpty() && password.isEmpty() -> {
                 Toast
-                    .makeText(this, "Email & Password are required to create account", Toast.LENGTH_SHORT)
+                    .makeText(
+                        this,
+                        "Email & Password are required to create account",
+                        Toast.LENGTH_SHORT
+                    )
                     .show()
                 return false
             }
@@ -155,6 +157,10 @@ class RegisterActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }, 2000)
+    }
+
+    companion object {
+        private const val TAG: String = "HomeActivity"
     }
 }
 

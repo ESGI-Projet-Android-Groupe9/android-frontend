@@ -1,15 +1,14 @@
 package com.esgi.groupe9.frontend
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.esgi.groupe9.frontend.utils.Constants
-import java.util.*
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
@@ -28,12 +27,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
             if (!checkInputForgot(email)) return@setOnClickListener
 
-            Log.d("ForgotPasswordActivity", "Try to send an email for reset password to the User")
+            Log.d(TAG, "Try to send an email for reset password to the User")
             Constants.FIREBASE_AUTH.sendPasswordResetEmail(email)
                 .addOnCompleteListener {
                     if (!it.isSuccessful) return@addOnCompleteListener
                     Log.d(
-                        "ForgotPasswordActivity",
+                        TAG,
                         "Successfully send email to the user with the email : $email"
                     )
                     Toast
@@ -47,7 +46,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener {
                     Log.d(
-                        "ForgotPasswordActivity",
+                        TAG,
                         "Error while sending the email due to : ${it.message}"
                     )
                     Toast
@@ -79,6 +78,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }, 2000)
+    }
+
+    companion object {
+        private const val TAG: String = "ForgotPasswordActivity"
     }
 }
 

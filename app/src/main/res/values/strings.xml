@@ -1,3 +1,46 @@
 <resources>
     <string name="app_name">My Steam</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_likes">Mes likes</string>
+    <string name="no_likes_content">Vous n\'avez encore pas liké de contenu.</string>
+    <string name="add_likes_message">Cliquez sur le coeur pour en rajouter.</string>
+    <string name="my_wishlist">Mes wishlist</string>
+    <string name="no_wishlist_content">Vous n\'avez encore pas liké de contenu.</string>
+    <string name="add_wishlist_message">Cliquez sur l\'étoile pour en rajouter.</string>
+    <string name="game_description_text">Lorem ipsum dolor sit amet. Qui sequi incidunt sit architecto quia a accusamus totam in aliquid architecto aut eveniet rerum aut rerum iure. In velit distinctio eos assumenda totam quo culpa nostrum sed repellendus distinctio. Hic molestias saepe est voluptas nihil id earum voluptatem et laboriosam dolorem et voluptatibus ipsam. Qui officia eveniet ut autem quae est molestiae tempore eos maiores sunt eos reprehenderit autem et fugit officiis.
+
+Et fuga placeat non cumque recusandae vel quia ipsa et natus voluptatibus eos nobis quae? Ea suscipit nobis cum corporis dicta ut corporis quod At rerum tempore. Eos sint dolorum est animi illum sit voluptatem molestias ut obcaecati voluptatem aut libero nostrum. Qui eligendi tenetur aut aspernatur rerum nam unde omnis est sequi quaerat.
+        </string>
+    <string name="game_name">game name</string>
+    <string name="game_editor">game editor</string>
+    <string name="game_price">Prix: game price</string>
+    <string name="more_infos">En savoir plus</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="user_review">Bacon ipsum dolor amet rump doner brisket corned beef tri-tip. Burgdoggen t-bone leberkas, tri-tip bacon beef ribs...</string>
+    <string name="DESCRIPTION">DESCRIPTION</string>
+    <string name="REVIEW">AVIS</string>
+    <string name="best_sellers">Les meilleures ventes</string>
+
+    <string name="welcome">Bienvenue !</string>
+    <string name="please_signin_login_message">Veuillez vous connecter ou\ncréer un nouveau compte\nPour utiliser l\'application</string>
+    <string name="emailHint">Email</string>
+    <string name="passwordHint">Mot de passe</string>
+    <string name="login">Se connecter</string>
+    <string name="signup">Créer un nouveau compte</string>
+    <string name="passord_forgot">Mot de passe oublié</string>
+    <string name="enter_email_for_forgot_password">Veuillez saisir votre email\nafin de réinitialiser votre mot de passe</string>
+    <string name="resent_password">Renvoyer mon mot de passe</string>
+
+
+    <string name="search_game_hint">Rechercher un jeu...</string>
+
+    <string name="inscription">Inscription</string>
+    <string name="signup_text">Veuillez saisir ces différentes informations,\nafin que vos listes soient sauvegardées.</string>
+    <string name="verify_passwordHint">Vérification de Mot de passe</string>
+    <string name="create_new_account">Créer un nouveau compte</string>
+    <string name="know_more">En savoir plus</string>
+    <string name="short_game_description">Une description d\'un jeu mis en avant (peu être fait en dur)</string>
+    <string name="back">Retour</string>
+
 </resources>
