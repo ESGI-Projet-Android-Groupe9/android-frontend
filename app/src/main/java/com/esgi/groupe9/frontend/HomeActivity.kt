@@ -51,7 +51,7 @@ class HomeActivity : AppCompatActivity() {
                     })
                 }
             } catch (e: Exception) {
-                Log.d(TAG, "There is an error with the following message : ${e.message}")
+                e.message?.let { Log.d(TAG, it) }
             }
         }
     }
