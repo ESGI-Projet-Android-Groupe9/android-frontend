@@ -8,16 +8,26 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.esgi.groupe9.frontend.utils.Constants
+import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_AUTH
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        checkIfUserConnected()
         signInUser()
         goOnRegisterPage()
         goOnForgotPasswordPage()
+    }
+
+    private fun checkIfUserConnected() {
+        val user = FIREBASE_AUTH.currentUser
+        if (user != null) {
+            goOnHomePage()
+        } else {
+            return
+        }
     }
 
     private fun signInUser() {
@@ -30,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
             if (!checkInput(email, password)) return@setOnClickListener
 
             Log.d("LoginActivity", "Attempt login with Email : $email")
-            Constants.FIREBASE_AUTH.signInWithEmailAndPassword(email, password)
+            FIREBASE_AUTH.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (!it.isSuccessful) return@addOnCompleteListener
                     Log.d(

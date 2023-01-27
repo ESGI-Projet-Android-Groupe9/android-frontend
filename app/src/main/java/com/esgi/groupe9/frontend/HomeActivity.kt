@@ -1,13 +1,17 @@
 package com.esgi.groupe9.frontend
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esgi.groupe9.frontend.entity.Game
 import com.esgi.groupe9.frontend.helper.ApiHelperImpl
+import com.esgi.groupe9.frontend.utils.Constants
 import com.esgi.groupe9.frontend.utils.RetrofitBuilder.apiService
 import com.esgi.groupe9.frontend.viewers.GameListAdapter
 import com.esgi.groupe9.frontend.viewers.OnGameListener
@@ -27,6 +31,21 @@ class HomeActivity : AppCompatActivity() {
         */
 
         showTopGames()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_sign_out -> {
+                Constants.FIREBASE_AUTH.signOut()
+                goOnLoginPage()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -54,6 +73,12 @@ class HomeActivity : AppCompatActivity() {
                 e.message?.let { Log.d(TAG, it) }
             }
         }
+    }
+
+    private fun goOnLoginPage() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     companion object {
