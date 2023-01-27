@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/loginActivity">
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.esgi.groupe9.frontend.LoginActivity"
+        android:label="LoginActivity"
+        tools:layout="@layout/activity_login">
+        <action
+            android:id="@+id/action_loginActivity_to_homeActivity"
+            app:destination="@id/homeActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </activity>
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.esgi.groupe9.frontend.HomeActivity"
+        android:label="activity_home"
+        tools:layout="@layout/activity_home" >
+        <action
+            android:id="@+id/action_homeActivity_to_gameDetailFragment"
+            app:destination="@id/gameDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </activity>
+    <fragment
+        android:id="@+id/gameDetailFragment"
+        android:name="com.esgi.groupe9.frontend.GameDetailFragment"
+        android:label="fragment_game_detail"
+        tools:layout="@layout/fragment_game_details" >
+        <argument
+            android:name="gameItem"
+            app:argType="com.esgi.groupe9.frontend.entity.Game" />
+    </fragment>
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.esgi.groupe9.frontend.RegisterActivity"
+        android:label="RegisterActivity" />
+    <activity
+        android:id="@+id/forgotPasswordActivity"
+        android:name="com.esgi.groupe9.frontend.ForgotPasswordActivity"
+        android:label="ForgotPasswordActivity" />
+</navigation>

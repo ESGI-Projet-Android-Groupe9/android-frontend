@@ -21,7 +21,7 @@ class GameListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
         return GameViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.game_item_preview_home, parent, false
+                R.layout.game_item, parent, false
             )
         )
     }

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esgi.groupe9.frontend.entity.Game
@@ -33,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
     private fun showTopGames() {
         Log.d(TAG, "Try to launch the Recycle View with the data from the BFF")
         GlobalScope.launch(Dispatchers.Main) {
+            //val navController = findNavController(R.id.nav_host_fragment)
             try {
                 val gamesFromApi = withContext(Dispatchers.IO) { apiHelper.getGames() }
                 findViewById<RecyclerView>(R.id.games_list_view_home).apply {
@@ -47,6 +50,8 @@ class HomeActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
+                            val navController = Navigation.findNavController(this@HomeActivity, R.id.nav_host_fragment)
+                            navController.navigate(HomeActivityDirections.actionHomeActivityToGameDetailFragment(game))
                         }
                     })
                 }
