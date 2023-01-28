@@ -43,7 +43,12 @@ Et fuga placeat non cumque recusandae vel quia ipsa et natus voluptatibus eos no
     <string name="know_more">En savoir plus</string>
     <string name="short_game_description">Une description d\'un jeu mis en avant (peu être fait en dur)</string>
     <string name="home">Accueil</string>
+    <string name="GameDetail">Détail du jeu</string>
+    <string name="Mylikes">Mes likes</string>
+    <string name="MyWhishlist">Ma liste de souhaits</string>
     <string name="the_game_background">The game background</string>
     <string name="back">Retour</string>
+    <string name="Like">Aime</string>
+    <string name="Favorite">Favoris</string>
 
 </resources>

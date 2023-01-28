@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("game/lite_games")
+    @GET("game/full_games")
     suspend fun getGamesAsync(): List<Game>
 }

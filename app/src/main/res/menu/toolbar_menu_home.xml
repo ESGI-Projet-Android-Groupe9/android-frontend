@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home_like"
+        android:icon="@drawable/like"
+        android:title="@string/Like"/>
+
+    <item android:id="@+id/home_favorite"
+        android:icon="@drawable/whishlist"
+        android:title="@string/Favorite"/>
+</menu>

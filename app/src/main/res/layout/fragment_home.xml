@@ -11,6 +11,17 @@
         android:orientation="vertical"
         android:background="@color/dark_blue">
 
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/home_toolbar"
+            app:title="@string/home"
+            app:titleTextColor="@color/white"
+            app:menu="@menu/toolbar_menu_home"
+            android:background="@color/purple_normal"
+            tools:ignore="MissingConstraints" />
+
         <include
             android:id="@+id/search_field_home"
             layout="@layout/search_text_field_home"/>

@@ -13,13 +13,19 @@
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
 
     </fragment>
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.esgi.groupe9.frontend.HomeFragment"
-        android:label="fragment_home"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_gameDetailFragment"
@@ -28,10 +34,28 @@
     <fragment
         android:id="@+id/gameDetailFragment"
         android:name="com.esgi.groupe9.frontend.GameDetailFragment"
-        android:label="fragment_game_detail"
+        android:label="@string/GameDetail"
         tools:layout="@layout/fragment_game_details">
         <argument
             android:name="gameItem"
             app:argType="com.esgi.groupe9.frontend.entity.Game" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.esgi.groupe9.frontend.RegisterFragment"
+        android:label="@string/signup_text"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.esgi.groupe9.frontend.ForgotPasswordFragment"
+        android:label="@string/passord_forgot"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

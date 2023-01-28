@@ -5,10 +5,23 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".GameDetailFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray_blue">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/game_detail_toolbar"
+            app:title="@string/GameDetail"
+            app:titleTextColor="@color/white"
+            app:menu="@menu/toolbar_menu_game_detail"
+            android:background="@color/purple_normal"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/game_background_detail"
             android:layout_width="match_parent"
@@ -16,9 +29,11 @@
             android:src="@drawable/man_hunter"
             android:scaleType="centerCrop"
             android:contentDescription="@string/the_game_background"
+            app:layout_constraintTop_toBottomOf="@id/game_detail_toolbar"
             tools:ignore="MissingConstraints" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/game_tablayout_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -2,12 +2,15 @@ package com.esgi.groupe9.frontend
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esgi.groupe9.frontend.entity.Game
@@ -22,17 +25,30 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-
         val navController = findNavController()
+
+        setHomeToolbar(view)
+        fillGames(view, navController)
+
+        return view
+    }
+
+    private fun setHomeToolbar(view: View){
+        val homeToolbar = view.findViewById<Toolbar>(R.id.home_toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(homeToolbar)
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun fillGames(view: View, navController: NavController){
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val gamesFromApi = withContext(Dispatchers.IO) { apiHelper.getGames() }
@@ -57,8 +73,25 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 //e.message?.let { Log.d(activity.TAG, it) }
             }
         }
+    }
 
-        return view
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu_home, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home_like -> {
+                // TODO Handle like icon click
+                return true
+            }
+            R.id.home_favorite -> {
+                // TODO Handle favorite icon click
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

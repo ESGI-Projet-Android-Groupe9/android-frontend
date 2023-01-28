@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.esgi.groupe9.frontend.utils.Constants
@@ -17,9 +18,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        goOnRegisterPage()
-//        goOnForgotPasswordPage()
     }
 
     override fun onCreateView(
@@ -29,6 +27,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         signInUser(view)
+        goOnRegisterPage(view)
+        goOnForgotPasswordPage(view)
         return view
     }
 
@@ -88,29 +88,24 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun goOnHomePage() {
-        val navController = findNavController()
-        navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
     }
-//
-//    private fun goOnRegisterPage() {
-//        val registerButton = findViewById<Button>(R.id.register_button)
-//        registerButton.setOnClickListener {
-//            val intent = Intent(this, RegisterActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            startActivity(intent)
-//        }
-//    }
-//
-//    private fun goOnForgotPasswordPage() {
-//        val forgotLinkPassword = findViewById<TextView>(R.id.forgot_password_link)
-//        forgotLinkPassword.setOnClickListener {
-//            val intent = Intent(this, ForgotPasswordActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            startActivity(intent)
-//        }
-//    }
+
+    private fun goOnRegisterPage(view: View) {
+        val registerButton = view.findViewById<Button>(R.id.register_button)
+        registerButton.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+        }
+    }
+
+    private fun goOnForgotPasswordPage(view: View) {
+        val forgotLinkPassword = view.findViewById<TextView>(R.id.forgot_password_link)
+        forgotLinkPassword.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment())
+        }
+    }
 
     companion object {
-        private const val TAG: String = "LoginActivity"
+        private const val TAG: String = "LoginFragment"
     }
 }

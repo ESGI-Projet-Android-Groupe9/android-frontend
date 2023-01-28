@@ -5,14 +5,17 @@
     android:layout_height="match_parent"
     android:background="@color/dark_blue"
     tools:context=".GameDescriptionFragment">
-
-    <TextView
-        android:id="@+id/game_description_detail"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="@string/game_description_text"
-        android:textColor="@color/white"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/game_description_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/game_description_text"
+            android:textColor="@color/white"
+            tools:ignore="MissingConstraints" />
+    </ScrollView>
 </FrameLayout>

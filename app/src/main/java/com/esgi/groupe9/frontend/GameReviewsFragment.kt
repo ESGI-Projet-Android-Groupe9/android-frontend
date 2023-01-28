@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esgi.groupe9.frontend.entity.Review
-import com.esgi.groupe9.frontend.entity.generateFakeReview
+import com.esgi.groupe9.frontend.utils.DummyData.DUMMY_REVIEW
 import com.esgi.groupe9.frontend.viewers.OnReviewListener
 import com.esgi.groupe9.frontend.viewers.ReviewListAdapter
 
@@ -29,11 +29,11 @@ class GameReviewsFragment : Fragment() {
 
         // TODO Get review from the gameId of Parcelable 'gameItem'
         val reviews = listOf(
-            generateFakeReview(),
-            generateFakeReview(),
-            generateFakeReview(),
-            generateFakeReview(),
-            generateFakeReview(),
+            DUMMY_REVIEW,
+            DUMMY_REVIEW,
+            DUMMY_REVIEW,
+            DUMMY_REVIEW,
+            DUMMY_REVIEW,
         )
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_review, container, false)
