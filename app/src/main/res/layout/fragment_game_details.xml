@@ -26,7 +26,7 @@
             android:paddingTop="50dp"
             android:background="@color/gray_blue"
             app:layout_constraintTop_toBottomOf="@id/game_background_detail">
-            <TableLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/game_detail_tablayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/REVIEW"/>
-            </TableLayout>
+            </com.google.android.material.tabs.TabLayout>
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/game_detail_view_pager"
                 android:layout_width="match_parent"

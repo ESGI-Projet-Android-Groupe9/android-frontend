@@ -77,7 +77,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goOnHomePage() {
-        val intent = Intent(this, HomeActivity::class.java)
+        //val navController = Navigation.findNavController(this, R.id.loginActivity)
+        //navController.navigate(LoginActivityDirections.actionLoginActivityToHomeFragment())
+
+        //val intent = Intent(this, HomeActivity::class.java)
+        //intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        //startActivity(intent)
+        val intent = Intent(this, HomeFragment::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }

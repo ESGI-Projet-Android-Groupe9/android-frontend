@@ -8,14 +8,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.esgi.groupe9.frontend.utils.DummyData
 import com.esgi.groupe9.frontend.viewers.VPAdapter
 import com.google.android.material.tabs.TabLayout
 
-class GameDetailFragment : Fragment() {
-    //private val args: GameDetailFragmentArgs by navArgs()
+class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
+    private val args: GameDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +43,8 @@ class GameDetailFragment : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
-        //val game = args.gameItem
-        val game = DummyData.DUMMY_GAME
-
-//        val aboutTheGame = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
-//        val shortDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
-//        val price = 10.00,
+        val game = args.gameItem
+        //val game = DummyData.DUMMY_GAME
 
         view?.findViewById<TextView>(R.id.game_name_item_detail)?.text = game.name
 
