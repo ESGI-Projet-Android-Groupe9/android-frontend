@@ -3,6 +3,9 @@ package com.esgi.groupe9.frontend
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +16,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.esgi.groupe9.frontend.entity.Game
 import com.esgi.groupe9.frontend.helper.ApiHelperImpl
+import com.esgi.groupe9.frontend.utils.DummyData
 import com.esgi.groupe9.frontend.utils.RetrofitBuilder
 import com.esgi.groupe9.frontend.viewers.GameListAdapter
 import com.esgi.groupe9.frontend.viewers.OnGameListener
@@ -37,9 +42,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val navController = findNavController()
 
         setHomeToolbar(view)
-        fillGames(view, navController)
+        fillGameList(view, navController)
 
         return view
+    }
+
+    override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(itemView, savedInstanceState)
+        val navController = findNavController()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -69,13 +79,34 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    private fun fillGames(view: View, navController: NavController){
+    private fun fillGameList(view: View, navController: NavController){
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val gamesFromApi = withContext(Dispatchers.IO) { apiHelper.getGames() }
+                val bestGame = gamesFromApi[0]
+                // Fill Best Game information in the top of the home page
+                view.findViewById<TextView>(R.id.game_name_home)?.apply {
+                    text = bestGame.name
+                }
+                view.findViewById<TextView>(R.id.game_short_description_home)?.apply {
+                    text = bestGame.shortDescription
+                }
+                val bestGameImageHome = view.findViewById<ImageView>(R.id.best_game_image_home)
+                if (bestGameImageHome != null) {
+                    Glide.with(view).load(bestGame.image).into(bestGameImageHome)
+                }
+                val bestGameBackgroundHome = view.findViewById<ImageView>(R.id.best_image_background_home)
+                if (bestGameBackgroundHome != null) {
+                    Glide.with(view).load(bestGame.background).into(bestGameBackgroundHome)
+                }
+
+                view.findViewById<Button>(R.id.know_more)?.setOnClickListener {
+                    val action = HomeFragmentDirections.actionHomeFragmentToGameDetailFragment(bestGame)
+                    navController.navigate(action)
+                }
                 view.findViewById<RecyclerView>(R.id.games_list_view_home).apply {
                     layoutManager = LinearLayoutManager(activity)
-                    adapter = GameListAdapter(gamesFromApi, object : OnGameListener {
+                    adapter = GameListAdapter(gamesFromApi.subList(1, gamesFromApi.size), object : OnGameListener {
                         override fun onClicked(game: Game, position: Int) {
                             /* TODO: the logic to redirect the
                                 user to a detail page live right there */
@@ -95,6 +126,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
+
+
 
     companion object {
         private const val TAG: String = "HomeFragment"
