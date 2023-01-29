@@ -28,6 +28,14 @@ class LikesFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val like_toolbar = view.findViewById<Toolbar>(R.id.likes_toolbar)
+        like_toolbar.setNavigationOnClickListener{
+            findNavController().navigate(LikesFragmentDirections.actionLikesFragment2ToHomeFragment())
+        }
+    }
+
     private fun setLikesToolbar(view: View){
         val like_toolbar = view.findViewById<Toolbar>(R.id.likes_toolbar)
         like_toolbar.setNavigationOnClickListener{

@@ -28,6 +28,14 @@ class WhishlistFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val whishlist_toolbar = view.findViewById<Toolbar>(R.id.whishlist_toolbar)
+        whishlist_toolbar.setNavigationOnClickListener{
+            findNavController().navigate(WhishlistFragmentDirections.actionWhishlistFragmentToHomeFragment())
+        }
+    }
+
     private fun setWhishlistToolbar(view: View){
         val whishlist_toolbar = view.findViewById<Toolbar>(R.id.whishlist_toolbar)
         whishlist_toolbar.setNavigationOnClickListener{

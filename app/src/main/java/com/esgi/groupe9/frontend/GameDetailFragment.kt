@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
@@ -42,6 +43,11 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
         setHeaderGame(itemView)
+        val gameDetailToolbar = view?.findViewById<Toolbar>(R.id.game_detail_toolbar)
+        gameDetailToolbar?.setNavigationOnClickListener {
+            Log.d(TAG, "toto")
+            findNavController().navigate(GameDetailFragmentDirections.actionGameDetailFragmentToHomeFragment())
+        }
     }
 
     private fun setHeaderGame(itemView:View){
@@ -113,5 +119,8 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+    companion object {
+        private const val TAG: String = "GameDetailFragment"
     }
 }
