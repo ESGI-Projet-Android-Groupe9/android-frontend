@@ -33,7 +33,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun signUpUser(view: View) {
-        val registerButton = view?.findViewById<Button>(R.id.create_account_button)
+        val registerButton = view.findViewById<Button>(R.id.create_account_button)
 
         checkPasswordEquality(view)
 
