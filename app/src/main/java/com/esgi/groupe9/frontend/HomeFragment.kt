@@ -42,6 +42,27 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         return view
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu_home, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home_like -> {
+                // TODO Handle like icon click
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLikesFragment2())
+                return true
+            }
+            R.id.home_favorite -> {
+                // TODO Handle favorite icon click
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToWhishlistFragment())
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setHomeToolbar(view: View){
         val homeToolbar = view.findViewById<Toolbar>(R.id.home_toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(homeToolbar)
@@ -73,27 +94,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 //e.message?.let { Log.d(activity.TAG, it) }
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar_menu_home, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.home_like -> {
-                // TODO Handle like icon click
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLikesFragment2())
-                return true
-            }
-            R.id.home_favorite -> {
-                // TODO Handle favorite icon click
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToWhishlistFragment())
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     companion object {

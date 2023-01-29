@@ -45,9 +45,32 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         setHeaderGame(itemView)
         val gameDetailToolbar = view?.findViewById<Toolbar>(R.id.game_detail_toolbar)
         gameDetailToolbar?.setNavigationOnClickListener {
-            Log.d(TAG, "toto")
             findNavController().navigate(GameDetailFragmentDirections.actionGameDetailFragmentToHomeFragment())
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu_game_detail, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.game_detail_like -> {
+                // TODO Handle like icon click
+                return true
+            }
+            R.id.game_detail_favorite -> {
+                // TODO Handle favorite icon click
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setGameDetailToolbar(view: View){
+        val gameDetailToolbar = view.findViewById<Toolbar>(R.id.game_detail_toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(gameDetailToolbar)
     }
 
     private fun setHeaderGame(itemView:View){
@@ -97,29 +120,6 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         }
     }
 
-    private fun setGameDetailToolbar(view: View){
-        val gameDetailToolbar = view.findViewById<Toolbar>(R.id.game_detail_toolbar)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(gameDetailToolbar)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar_menu_game_detail, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.game_detail_like -> {
-                // TODO Handle like icon click
-                return true
-            }
-            R.id.game_detail_favorite -> {
-                // TODO Handle favorite icon click
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
     companion object {
         private const val TAG: String = "GameDetailFragment"
     }
