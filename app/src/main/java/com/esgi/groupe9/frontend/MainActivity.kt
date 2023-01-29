@@ -10,22 +10,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 
 class MainActivity : AppCompatActivity() {
-    //private lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-//        setSupportActionBar(toolbar)
-//
-//        val navHostController = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-//        navController = navHostController.navController
-//
-//        //setupActionBarWithNavController(navController)
-//        toolbar.setupWithNavController(navController)
     }
-
-//    override fun onSupportNavigateUp(): Boolean {
-//        return navController.navigateUp() || super.onSupportNavigateUp()
-//    }
 }

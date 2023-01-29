@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -43,7 +44,7 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         setHeaderGame(itemView)
     }
 
-    fun setHeaderGame(itemView:View){
+    private fun setHeaderGame(itemView:View){
         val game = args.gameItem
 
         view?.findViewById<TextView>(R.id.game_name_item_detail)?.text = game.name
@@ -67,9 +68,9 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         }
     }
 
-    fun setTabLayout(view: View){
-        val tabLayout = view?.findViewById<TabLayout>(R.id.game_detail_tablayout)
-        val viewPager = view?.findViewById<ViewPager>(R.id.game_detail_view_pager)
+    private fun setTabLayout(view: View){
+        val tabLayout = view.findViewById<TabLayout>(R.id.game_detail_tablayout)
+        val viewPager = view.findViewById<ViewPager>(R.id.game_detail_view_pager)
 
         tabLayout?.setupWithViewPager(viewPager)
 

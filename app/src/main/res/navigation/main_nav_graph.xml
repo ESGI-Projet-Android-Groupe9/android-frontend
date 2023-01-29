@@ -30,6 +30,12 @@
         <action
             android:id="@+id/action_homeFragment_to_gameDetailFragment"
             app:destination="@id/gameDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_likesFragment2"
+            app:destination="@id/likesFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_whishlistFragment"
+            app:destination="@id/whishlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameDetailFragment"
@@ -57,5 +63,23 @@
         <action
             android:id="@+id/action_forgotPasswordFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/likesFragment2"
+        android:name="com.esgi.groupe9.frontend.LikesFragment"
+        android:label="fragment_likes"
+        tools:layout="@layout/fragment_likes" >
+        <action
+            android:id="@+id/action_likesFragment2_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/whishlistFragment"
+        android:name="com.esgi.groupe9.frontend.WhishlistFragment"
+        android:label="fragment_wishlist"
+        tools:layout="@layout/fragment_wishlist" >
+        <action
+            android:id="@+id/action_whishlistFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

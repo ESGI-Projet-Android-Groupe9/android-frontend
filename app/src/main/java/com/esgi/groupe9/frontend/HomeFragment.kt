@@ -84,10 +84,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         when (item.itemId) {
             R.id.home_like -> {
                 // TODO Handle like icon click
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLikesFragment2())
                 return true
             }
             R.id.home_favorite -> {
                 // TODO Handle favorite icon click
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToWhishlistFragment())
                 return true
             }
         }

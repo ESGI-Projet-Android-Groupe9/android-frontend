@@ -13,13 +13,15 @@
         android:background="@color/gray_blue">
 
         <androidx.appcompat.widget.Toolbar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/game_detail_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/game_detail_toolbar"
+            app:navigationIcon="@drawable/back"
             app:title="@string/GameDetail"
             app:titleTextColor="@color/white"
             app:menu="@menu/toolbar_menu_game_detail"
-            android:background="@color/purple_normal"
+            android:background="@color/gray_blue"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
