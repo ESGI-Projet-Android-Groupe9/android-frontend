@@ -34,7 +34,10 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_game_details, container, false)
 
+        // Set the GameDetailFragment toolbar
         setGameDetailToolbar(view)
+
+        // Set the tabLayout of gameDetailFragment
         setTabLayout(view)
 
         return view
@@ -42,6 +45,8 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
+
+        // Set header Game in GameDetailFragment
         setHeaderGame(itemView)
         val gameDetailToolbar = view?.findViewById<Toolbar>(R.id.game_detail_toolbar)
         gameDetailToolbar?.setNavigationOnClickListener {
@@ -49,30 +54,36 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         }
     }
 
+    // Create the different options in the toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_menu_game_detail, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    // Set on Action of onSelect an option
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.game_detail_like -> {
-                // TODO Handle like icon click
+                // TODO Add action onClick to add this item game in the likes list of the user
+                //  and modify the view to have a filled like icon
                 return true
             }
             R.id.game_detail_favorite -> {
-                // TODO Handle favorite icon click
+                // TODO Add action onClick to add this item game in the wishlist of the user
+                //  and modify the view to have a filled wishlist icon
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    // Set the game_detail_toolbar to our current activity
     private fun setGameDetailToolbar(view: View){
         val gameDetailToolbar = view.findViewById<Toolbar>(R.id.game_detail_toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(gameDetailToolbar)
     }
 
+    // Set header Game in GameDetailFragment
     private fun setHeaderGame(itemView:View){
         val game = args.gameItem
 
@@ -97,6 +108,7 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         }
     }
 
+    // Set the tabLayout of gameDetailFragment
     private fun setTabLayout(view: View){
         val tabLayout = view.findViewById<TabLayout>(R.id.game_detail_tablayout)
         val viewPager = view.findViewById<ViewPager>(R.id.game_detail_view_pager)

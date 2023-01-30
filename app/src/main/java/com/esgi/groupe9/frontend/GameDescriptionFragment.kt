@@ -26,6 +26,8 @@ class GameDescriptionFragment : Fragment() {
             container,
             false
         )
+
+        // Set the game description field
         view.findViewById<TextView>(R.id.game_description_detail).text = gameDescription
 
         return view
