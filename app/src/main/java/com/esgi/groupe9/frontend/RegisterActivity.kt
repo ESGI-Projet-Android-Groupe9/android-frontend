@@ -63,7 +63,9 @@ class RegisterActivity : AppCompatActivity() {
         val username: String =
             findViewById<EditText>(R.id.username_input_register).text.toString()
         val email: String = findViewById<EditText>(R.id.email_input_register).text.toString()
-        val user = User(userId, username, email)
+        val likesList = listOf<String>()
+        val wishlist = listOf<String>()
+        val user = User(userId, username, email, likesList, wishlist)
 
         Log.d(TAG, "Try to add a User to the FireStore Database")
         Constants.FIREBASE_FIRESTORE.collection("users")
