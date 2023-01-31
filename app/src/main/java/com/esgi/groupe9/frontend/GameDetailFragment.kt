@@ -3,6 +3,7 @@ package com.esgi.groupe9.frontend
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -12,11 +13,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
+import com.esgi.groupe9.frontend.entity.Review
 import com.esgi.groupe9.frontend.utils.DummyData
+import com.esgi.groupe9.frontend.viewers.OnReviewListener
+import com.esgi.groupe9.frontend.viewers.ReviewListAdapter
 import com.esgi.groupe9.frontend.viewers.VPAdapter
 import com.google.android.material.tabs.TabLayout
+import io.grpc.NameResolver.Args
 
 class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     private val args: GameDetailFragmentArgs by navArgs()
@@ -36,13 +43,48 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
 
         // Set the GameDetailFragment toolbar
         setGameDetailToolbar(view)
+<<<<<<< HEAD
 
         // Set the tabLayout of gameDetailFragment
         setTabLayout(view)
 
+=======
+        setGameDetailsContent(view)
+>>>>>>> 6ac7c05 (replace game detail toolbar by superposed views)
         return view
     }
 
+    private fun setGameDetailsContent(view: View){
+        val gameDescriptionView = view.findViewById<TextView>(R.id.game_description_detail)
+        val gameReviewsRecyclerView = view.findViewById<RecyclerView>(R.id.game_reviews_view_in_detail)
+        val reviews = listOf(
+            DummyData.DUMMY_REVIEW,
+            DummyData.DUMMY_REVIEW,
+            DummyData.DUMMY_REVIEW,
+            DummyData.DUMMY_REVIEW,
+            DummyData.DUMMY_REVIEW,
+        )
+
+        gameDescriptionView.text = args.gameItem.detailedDescription
+        gameReviewsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(activity ,)
+            adapter = ReviewListAdapter(reviews, object : OnReviewListener {
+                override fun onClicked(review: Review, position: Int) {
+                    Toast.makeText(activity, "Review $position clicked", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+        view.findViewById<Button>(R.id.button_description).setOnClickListener{
+            gameReviewsRecyclerView.visibility = View.GONE
+            gameDescriptionView.visibility = View.VISIBLE
+        }
+
+        view.findViewById<Button>(R.id.button_reviews).setOnClickListener{
+            gameDescriptionView.visibility = View.GONE
+            gameReviewsRecyclerView.visibility = View.VISIBLE
+        }
+    }
+    
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
 
@@ -108,6 +150,7 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         }
     }
 
+<<<<<<< HEAD
     // Set the tabLayout of gameDetailFragment
     private fun setTabLayout(view: View){
         val tabLayout = view.findViewById<TabLayout>(R.id.game_detail_tablayout)
@@ -132,6 +175,8 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         }
     }
 
+=======
+>>>>>>> 6ac7c05 (replace game detail toolbar by superposed views)
     companion object {
         private const val TAG: String = "GameDetailFragment"
     }

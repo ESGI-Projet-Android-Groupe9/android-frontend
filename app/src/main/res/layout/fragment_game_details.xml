@@ -7,7 +7,6 @@
     tools:context=".GameDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray_blue">
@@ -35,44 +34,59 @@
             tools:ignore="MissingConstraints" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/game_tablayout_detail"
-            android:layout_width="match_parent"
+            android:id="@+id/game_detail_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="50dp"
-            android:background="@color/gray_blue"
-            app:layout_constraintTop_toBottomOf="@id/game_background_detail">
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/game_detail_tablayout"
+            app:layout_constraintTop_toBottomOf="@id/game_background_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:id="@+id/game_detail_content_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabBackground="@drawable/tabs_selector"
-                android:background="@drawable/tab_border_purple"
-                app:tabTextColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:paddingTop="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent">
-                <com.google.android.material.tabs.TabItem
+                tools:ignore="MissingConstraints">
+
+                <Button
+                    android:id="@+id/button_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/DESCRIPTION"/>
-                <com.google.android.material.tabs.TabItem
+                    android:text="@string/DESCRIPTION" />
+
+                <Button
+                    android:id="@+id/button_reviews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/REVIEW"/>
-            </com.google.android.material.tabs.TabLayout>
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/game_detail_view_pager"
+                    android:text="@string/REVIEW" />
+            </LinearLayout>
+
+            <include
+                android:id="@+id/game_description_view_in_detail"
+                layout="@layout/layout_game_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/game_detail_content_buttons" />
+
+            <include
+                android:id="@+id/game_reviews_view_in_detail"
+                layout="@layout/layout_game_reviews"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintLeft_toLeftOf="@id/game_detail_content"
+                app:layout_constraintRight_toRightOf="@id/game_detail_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/game_detail_tablayout"/>
+                app:layout_constraintTop_toBottomOf="@id/game_detail_content_buttons" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
@@ -81,7 +95,7 @@
             android:layout_width="360dp"
             android:layout_height="100dp"
             app:layout_constraintTop_toBottomOf="@id/game_background_detail"
-            app:layout_constraintBottom_toTopOf="@id/game_tablayout_detail"
+            app:layout_constraintBottom_toTopOf="@id/game_detail_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
