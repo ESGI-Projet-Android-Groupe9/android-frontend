@@ -57,7 +57,12 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
             DummyData.DUMMY_REVIEW,
             DummyData.DUMMY_REVIEW,
             DummyData.DUMMY_REVIEW,
+            DummyData.DUMMY_REVIEW,
+            DummyData.DUMMY_REVIEW,
+            DummyData.DUMMY_REVIEW,
         )
+        gameReviewsRecyclerView.visibility = View.GONE
+        gameDescriptionView.visibility = View.VISIBLE
 
         gameDescriptionView.text = args.gameItem.detailedDescription
         gameReviewsRecyclerView.apply {
