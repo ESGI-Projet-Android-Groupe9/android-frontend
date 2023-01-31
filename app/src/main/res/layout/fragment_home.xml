@@ -20,8 +20,7 @@
             app:title="@string/home"
             app:titleTextColor="@color/white"
             app:menu="@menu/toolbar_menu_home"
-            android:background="@color/gray_blue"
-            tools:ignore="MissingConstraints" />
+            android:background="@color/gray_blue"/>
 
         <include
             android:id="@+id/search_field_home"
@@ -44,7 +43,7 @@
             android:text="@string/best_sellers"
             android:textColor="@color/white"/>
 
-        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/games_list_view_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

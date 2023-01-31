@@ -11,15 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.esgi.groupe9.frontend.entity.Game
 import com.esgi.groupe9.frontend.helper.ApiHelperImpl
-import com.esgi.groupe9.frontend.utils.DummyData
 import com.esgi.groupe9.frontend.utils.RetrofitBuilder
 import com.esgi.groupe9.frontend.viewers.GameListAdapter
 import com.esgi.groupe9.frontend.viewers.OnGameListener
@@ -41,15 +38,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val navController = findNavController()
 
+        // Set HomeFragment toolbar
         setHomeToolbar(view)
-        fillGameList(view, navController)
+
+        // Set HomeFragment Games RecycleView
+        setHomeGameRecycleView(view, navController)
 
         return view
-    }
-
-    override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(itemView, savedInstanceState)
-        val navController = findNavController()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -60,12 +55,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home_like -> {
-                // TODO Handle like icon click
+                // Navigate to Likes list
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLikesFragment2())
                 return true
             }
             R.id.home_favorite -> {
-                // TODO Handle favorite icon click
+                // Navigate to wish list
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToWhishlistFragment())
                 return true
             }
@@ -78,56 +73,69 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         (requireActivity() as AppCompatActivity).setSupportActionBar(homeToolbar)
     }
 
+
     @OptIn(DelicateCoroutinesApi::class)
-    private fun fillGameList(view: View, navController: NavController){
+    private fun setHomeGameRecycleView(view: View, navController: NavController){
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                // Get the games from the API Request
                 val gamesFromApi = withContext(Dispatchers.IO) { apiHelper.getGames() }
-                val bestGame = gamesFromApi[0]
-                // Fill Best Game information in the top of the home page
-                view.findViewById<TextView>(R.id.game_name_home)?.apply {
-                    text = bestGame.name
-                }
-                view.findViewById<TextView>(R.id.game_short_description_home)?.apply {
-                    text = bestGame.shortDescription
-                }
-                val bestGameImageHome = view.findViewById<ImageView>(R.id.best_game_image_home)
-                if (bestGameImageHome != null) {
-                    Glide.with(view).load(bestGame.image).into(bestGameImageHome)
-                }
-                val bestGameBackgroundHome = view.findViewById<ImageView>(R.id.best_image_background_home)
-                if (bestGameBackgroundHome != null) {
-                    Glide.with(view).load(bestGame.background).into(bestGameBackgroundHome)
-                }
 
-                view.findViewById<Button>(R.id.know_more)?.setOnClickListener {
-                    val action = HomeFragmentDirections.actionHomeFragmentToGameDetailFragment(bestGame)
-                    navController.navigate(action)
-                }
-                view.findViewById<RecyclerView>(R.id.games_list_view_home).apply {
-                    layoutManager = LinearLayoutManager(activity)
-                    adapter = GameListAdapter(gamesFromApi.subList(1, gamesFromApi.size), object : OnGameListener {
-                        override fun onClicked(game: Game, position: Int) {
-                            /* TODO: the logic to redirect the
-                                user to a detail page live right there */
-                            Toast.makeText(
-                                activity,
-                                "Game $position clicked",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
-                            navController.navigate(HomeFragmentDirections.actionHomeFragmentToGameDetailFragment(game))
-                        }
-                    })
-                }
+                // Get the first Most played game
+                val bestGame = gamesFromApi[0]
+
+                // Fill the first Most played game information in the top of the home page
+                setFirstMostPlayedInfos(view, navController, bestGame)
+
+                // Set Games Recycle View
+                setGamesRecycleView(view, navController, gamesFromApi)
             } catch (e: Exception) {
                 Log.d(TAG, e.toString())
-                //e.message?.let { Log.d(activity.TAG, it) }
             }
         }
     }
 
+    // Fill the first Most played game information in the top of the home page
+    private fun setFirstMostPlayedInfos(view: View, navController: NavController, bestGame: Game){
+        view.findViewById<TextView>(R.id.game_name_home)?.apply {
+            text = bestGame.name
+        }
+        view.findViewById<TextView>(R.id.game_short_description_home)?.apply {
+            text = bestGame.shortDescription
+        }
+        val bestGameImageHome = view.findViewById<ImageView>(R.id.best_game_image_home)
+        if (bestGameImageHome != null) {
+            Glide.with(view).load(bestGame.image).into(bestGameImageHome)
+        }
+        val bestGameBackgroundHome = view.findViewById<ImageView>(R.id.best_image_background_home)
+        if (bestGameBackgroundHome != null) {
+            Glide.with(view).load(bestGame.background).into(bestGameBackgroundHome)
+        }
 
+        view.findViewById<Button>(R.id.know_more)?.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToGameDetailFragment(bestGame)
+            navController.navigate(action)
+        }
+    }
+
+    // Set Games Recycle View
+    private fun setGamesRecycleView(view: View, navController: NavController, games: List<Game>){
+        view.findViewById<RecyclerView>(R.id.games_list_view_home).apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = GameListAdapter(games.subList(1, games.size), object : OnGameListener {
+                override fun onClicked(game: Game, position: Int) {
+                    // TODO remove Toast or not
+                    Toast.makeText(
+                        activity,
+                        "Game $position clicked",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToGameDetailFragment(game))
+                }
+            })
+        }
+    }
 
     companion object {
         private const val TAG: String = "HomeFragment"

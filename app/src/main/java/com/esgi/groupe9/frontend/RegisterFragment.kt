@@ -18,7 +18,6 @@ import com.esgi.groupe9.frontend.utils.Constants
 class RegisterFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -27,72 +26,15 @@ class RegisterFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_register, container, false)
+
+        // Set button to signUn user
         signUpUser(view)
-        goOnLoginPage(view)
+        // Set button to navigate to LoginFragment
+        goOnLoginFragment(view)
         return view
     }
 
-    private fun signUpUser(view: View) {
-        val registerButton = view.findViewById<Button>(R.id.create_account_button)
-
-        checkPasswordEquality(view)
-
-        registerButton?.setOnClickListener {
-            val username = view.findViewById<EditText>(R.id.username_input_register)?.text.toString()
-            val email = view.findViewById<EditText>(R.id.email_input_register)?.text.toString()
-            val password = view.findViewById<EditText>(R.id.password_input_register)?.text.toString()
-
-            if (!checkInputRegister(email, password, username)) return@setOnClickListener
-
-            Log.d(TAG, "Try to register a User to the Firebase Authentication")
-            Constants.FIREBASE_AUTH.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if (!it.isSuccessful) return@addOnCompleteListener
-                    val userId = it.result.user?.uid.toString()
-                    Log.d(
-                        TAG,
-                        "Successfully created user with the UserID : ${it.result.user?.uid}"
-                    )
-                    saveUserToDatabase(view, userId)
-                    redirectOnLogin()
-                }
-                .addOnFailureListener {
-                    Log.d(TAG, "Failed to create user due to : ${it.message}")
-                    Toast.makeText(
-                        activity,
-                        "Failed to create user due to : ${it.message}",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-        }
-    }
-
-    private fun saveUserToDatabase(view: View, userId: String) {
-        val username: String =
-            view.findViewById<EditText>(R.id.username_input_register).text.toString()
-        val email: String = view.findViewById<EditText>(R.id.email_input_register).text.toString()
-        val user = User(userId, username, email)
-
-        Log.d(TAG, "Try to add a User to the FireStore Database")
-        Constants.FIREBASE_FIRESTORE.collection("users")
-            .add(user)
-            .addOnCompleteListener {
-                if (!it.isSuccessful) return@addOnCompleteListener
-                Log.d(
-                    TAG,
-                    "User has been inserted in database with the id : $userId"
-                )
-            }
-            .addOnFailureListener {
-                Log.w(
-                    TAG,
-                    "User has not been inserted in db because of ${it.message}"
-                )
-            }
-
-    }
-
+    // Check if the password and confirmPassword are equivalent
     private fun checkPasswordEquality(view: View) {
         val confirmPassword = view.findViewById<EditText>(R.id.confirm_password_input_register)
         confirmPassword.addTextChangedListener {
@@ -111,6 +53,7 @@ class RegisterFragment : Fragment() {
         // TODO: check when the password has been changed after the equality of both input
     }
 
+    // Check if the inputs are validit and correct of the RegisterFragment
     private fun checkInputRegister(email: String, password: String, username: String): Boolean {
         when {
             email.isEmpty() && password.isNotEmpty() && username.isNotEmpty() -> {
@@ -151,18 +94,86 @@ class RegisterFragment : Fragment() {
         return true
     }
 
-    private fun goOnLoginPage(view: View) {
+    // Set button to signUn user
+    private fun signUpUser(view: View) {
+        val registerButton = view.findViewById<Button>(R.id.create_account_button)
+
+        // Check the password and confirmPassword
+        checkPasswordEquality(view)
+
+        // Set onClick on registerButton
+        registerButton?.setOnClickListener {
+            val username = view.findViewById<EditText>(R.id.username_input_register)?.text.toString()
+            val email = view.findViewById<EditText>(R.id.email_input_register)?.text.toString()
+            val password = view.findViewById<EditText>(R.id.password_input_register)?.text.toString()
+
+            // Check the validity of the parameters
+            if (!checkInputRegister(email, password, username)) return@setOnClickListener
+
+            // Create and save a new user using Firebase
+            Log.d(TAG, "Try to register a User to the Firebase Authentication")
+            Constants.FIREBASE_AUTH.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    if (!it.isSuccessful) return@addOnCompleteListener
+                    val userId = it.result.user?.uid.toString()
+                    Log.d(
+                        TAG,
+                        "Successfully created user with the UserID : ${it.result.user?.uid}"
+                    )
+                    // Save the User in Firebase Database
+                    saveUserToDatabase(view, userId, username, email)
+                    // Navigate (or Return) to Login Page
+                    redirectOnLogin()
+                }
+                .addOnFailureListener {
+                    Log.d(TAG, "Failed to create user due to : ${it.message}")
+                    Toast.makeText(
+                        activity,
+                        "Failed to create user due to : ${it.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+    }
+
+    // Save a User with the indicated parameters from Firebase
+    private fun saveUserToDatabase(view: View, userId: String, username: String, email: String) {
+        val user = User(userId, username, email)
+
+        Log.d(TAG, "Try to add a User to the FireStore Database")
+        Constants.FIREBASE_FIRESTORE.collection("users")
+            .add(user)
+            .addOnCompleteListener {
+                if (!it.isSuccessful) return@addOnCompleteListener
+                Log.d(
+                    TAG,
+                    "User has been inserted in database with the id : $userId"
+                )
+            }
+            .addOnFailureListener {
+                Log.w(
+                    TAG,
+                    "User has not been inserted in db because of ${it.message}"
+                )
+            }
+    }
+
+    // Set button to navigate to LoginFragment
+    private fun goOnLoginFragment(view: View) {
         val backButton = view.findViewById<Button>(R.id.return_login_page)
         backButton.setOnClickListener {
+            // Navigate to LoginFragment
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }
     }
 
+    // Navigate (or Return) to LoginFragment
     private fun redirectOnLogin() {
+        // Navigate to LoginFragment
         findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
     }
 
     companion object {
-        private const val TAG: String = "HomeFragment"
+        private const val TAG: String = "RegisterFragment"
     }
 }

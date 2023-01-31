@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/whishlistFragment"
-        android:name="com.esgi.groupe9.frontend.WhishlistFragment"
+        android:name="com.esgi.groupe9.frontend.WishlistFragment"
         android:label="fragment_wishlist"
         tools:layout="@layout/fragment_wishlist" >
         <action

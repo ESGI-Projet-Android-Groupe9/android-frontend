@@ -44,7 +44,9 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         // Set the GameDetailFragment toolbar
         setGameDetailToolbar(view)
 
+        // Set the game detail content
         setGameDetailsContent(view)
+
         return view
     }
 
@@ -61,8 +63,9 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
             DummyData.DUMMY_REVIEW,
             DummyData.DUMMY_REVIEW,
         )
-        gameReviewsRecyclerView.visibility = View.GONE
+
         gameDescriptionView.visibility = View.VISIBLE
+        gameReviewsRecyclerView.visibility = View.GONE
 
         gameDescriptionView.text = args.gameItem.detailedDescription
         gameReviewsRecyclerView.apply {
@@ -76,11 +79,16 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         view.findViewById<Button>(R.id.button_description).setOnClickListener{
             gameReviewsRecyclerView.visibility = View.GONE
             gameDescriptionView.visibility = View.VISIBLE
+
+        view.findViewById<Button>(R.id.button_description).setBackgroundResource(R.drawable.button_description_selected)
+        view.findViewById<Button>(R.id.button_reviews).setBackgroundResource(R.drawable.button_reviews_unselected)
         }
 
         view.findViewById<Button>(R.id.button_reviews).setOnClickListener{
             gameDescriptionView.visibility = View.GONE
             gameReviewsRecyclerView.visibility = View.VISIBLE
+            view.findViewById<Button>(R.id.button_reviews).setBackgroundResource(R.drawable.button_reviews_selected)
+            view.findViewById<Button>(R.id.button_description).setBackgroundResource(R.drawable.button_description_unselected)
         }
     }
     
@@ -131,9 +139,6 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         view?.findViewById<TextView>(R.id.game_name_item_detail)?.text = game.name
 
         view?.findViewById<TextView>(R.id.game_editor_item_detail)?.text = game.editor.toString()
-
-        // TODO to fix
-        //view?.findViewById<TextView>(R.id.game_description_detail)?.text = game.detailedDescription
 
         val gameItemImageDetail = view?.findViewById<ImageView>(R.id.game_image_item_detail)
         if (gameItemImageDetail != null) {

@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 
 
-class WhishlistFragment : Fragment() {
+class WishlistFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,24 +23,24 @@ class WhishlistFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_wishlist, container, false)
 
-        setWhishlistToolbar(view)
+        // Set WishlistFragment toolbar
+        setWishlistToolbar(view)
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val whishlist_toolbar = view.findViewById<Toolbar>(R.id.whishlist_toolbar)
-        whishlist_toolbar.setNavigationOnClickListener{
-            findNavController().navigate(WhishlistFragmentDirections.actionWhishlistFragmentToHomeFragment())
+        val wishlist_toolbar = view.findViewById<Toolbar>(R.id.whishlist_toolbar)
+        wishlist_toolbar.setNavigationOnClickListener{
+            // Navigate (Return) to HomeFragment
+            findNavController().navigate(WishlistFragmentDirections.actionWhishlistFragmentToHomeFragment())
         }
     }
 
-    private fun setWhishlistToolbar(view: View){
-        val whishlist_toolbar = view.findViewById<Toolbar>(R.id.whishlist_toolbar)
-        whishlist_toolbar.setNavigationOnClickListener{
-            findNavController().navigate(WhishlistFragmentDirections.actionWhishlistFragmentToHomeFragment())
-        }
-        (requireActivity() as AppCompatActivity).setSupportActionBar(whishlist_toolbar)
+    // Set WishlistFragment toolbar
+    private fun setWishlistToolbar(view: View){
+        val wishlist_toolbar = view.findViewById<Toolbar>(R.id.whishlist_toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(wishlist_toolbar)
     }
 }

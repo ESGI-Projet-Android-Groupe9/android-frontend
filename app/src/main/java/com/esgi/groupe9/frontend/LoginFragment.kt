@@ -26,21 +26,28 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
+
+        // Set button to signIn user
         signInUser(view)
+        // Set button to Navigate to RegisterFragment
         goOnRegisterPage(view)
+        // Set button to Navigate to ForgotPasswordFragment
         goOnForgotPasswordPage(view)
+
         return view
     }
 
+    // Set button to signIn user
     private fun signInUser(view: View?) {
         val loginButton = view?.findViewById<Button>(R.id.login_button)
         loginButton?.setOnClickListener {
-            val email = view?.findViewById<EditText>(R.id.email_input_login)?.text.toString()
-            val password = view?.findViewById<EditText>(R.id.password_input_login)?.text.toString()
+            val email = view.findViewById<EditText>(R.id.email_input_login)?.text.toString()
+            val password = view.findViewById<EditText>(R.id.password_input_login)?.text.toString()
 
-            // check the input of the user in the LoginActivity
+            // check the input of the user in the LoginFragment
             if (!checkInput(email, password)) return@setOnClickListener
 
+            // Login using Firebase
             Log.d("LoginActivity", "Attempt login with Email : $email")
             Constants.FIREBASE_AUTH.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
@@ -57,12 +64,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         activity,
                         "Failed to login user due to : ${it.message}",
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
         }
     }
 
+    // Check if the input for login are valid or correct
     private fun checkInput(email: String, password: String): Boolean {
         when {
             email.isEmpty() && password.isNotEmpty() -> {
@@ -87,20 +94,25 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         return true
     }
 
+    // Navigate to HomeFragment
     private fun goOnHomePage() {
         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
     }
 
+    // Set button to Navigate to RegisterFragment
     private fun goOnRegisterPage(view: View) {
         val registerButton = view.findViewById<Button>(R.id.register_button)
         registerButton.setOnClickListener {
+            // Navigate to RegisterFragment
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
     }
 
+    // Set button to Navigate to ForgotPasswordFragment
     private fun goOnForgotPasswordPage(view: View) {
         val forgotLinkPassword = view.findViewById<TextView>(R.id.forgot_password_link)
         forgotLinkPassword.setOnClickListener {
+            // Navigate to ForgotPasswordFragment
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment())
         }
     }

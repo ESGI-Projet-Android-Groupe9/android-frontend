@@ -23,6 +23,7 @@ class LikesFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_likes, container, false)
 
+        // Set LikesFragment toolbar
         setLikesToolbar(view)
 
         return view
@@ -30,17 +31,18 @@ class LikesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val like_toolbar = view.findViewById<Toolbar>(R.id.likes_toolbar)
-        like_toolbar.setNavigationOnClickListener{
+
+        val likestoolbar = view.findViewById<Toolbar>(R.id.likes_toolbar)
+
+        likestoolbar.setNavigationOnClickListener{
+            // Navigate (Return) to Homefragment
             findNavController().navigate(LikesFragmentDirections.actionLikesFragment2ToHomeFragment())
         }
     }
 
+    // Set LikesFragment toolbar
     private fun setLikesToolbar(view: View){
-        val like_toolbar = view.findViewById<Toolbar>(R.id.likes_toolbar)
-        like_toolbar.setNavigationOnClickListener{
-            findNavController().navigate(LikesFragmentDirections.actionLikesFragment2ToHomeFragment())
-        }
-        (requireActivity() as AppCompatActivity).setSupportActionBar(like_toolbar)
+        val likestoolbar = view.findViewById<Toolbar>(R.id.likes_toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(likestoolbar)
     }
 }

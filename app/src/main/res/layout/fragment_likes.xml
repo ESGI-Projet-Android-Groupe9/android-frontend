@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".LikesFragment">
 
+<!--  TODO to replace when we have likes  -->
 <!--    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--        android:id="@+id/likes_list_view"-->
 <!--        android:layout_width="match_parent"-->
