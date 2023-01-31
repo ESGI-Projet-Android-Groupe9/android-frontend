@@ -43,14 +43,8 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
 
         // Set the GameDetailFragment toolbar
         setGameDetailToolbar(view)
-<<<<<<< HEAD
 
-        // Set the tabLayout of gameDetailFragment
-        setTabLayout(view)
-
-=======
         setGameDetailsContent(view)
->>>>>>> 6ac7c05 (replace game detail toolbar by superposed views)
         return view
     }
 
@@ -149,34 +143,7 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
             Glide.with(itemView).load(game.background).into(gameItemBackgroundHeadDetail)
         }
     }
-
-<<<<<<< HEAD
-    // Set the tabLayout of gameDetailFragment
-    private fun setTabLayout(view: View){
-        val tabLayout = view.findViewById<TabLayout>(R.id.game_detail_tablayout)
-        val viewPager = view.findViewById<ViewPager>(R.id.game_detail_view_pager)
-
-        tabLayout?.setupWithViewPager(viewPager)
-
-        val vpAdapter =
-            activity?.let { VPAdapter(it.supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) };
-
-        val gameDescriptionVarFrag: String = args.gameItem.detailedDescription
-
-        vpAdapter?.addFragment(GameDescriptionFragment().apply {
-            Log.d("GameDetailFragment", gameDescriptionVarFrag)
-            gameDescription = gameDescriptionVarFrag
-        }, "DESCRIPTION");
-
-
-        vpAdapter?.addFragment(GameReviewsFragment(), "AVIS");
-        if (viewPager != null) {
-            viewPager.adapter = vpAdapter
-        }
-    }
-
-=======
->>>>>>> 6ac7c05 (replace game detail toolbar by superposed views)
+    
     companion object {
         private const val TAG: String = "GameDetailFragment"
     }
