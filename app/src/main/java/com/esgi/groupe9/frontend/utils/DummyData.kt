@@ -1,10 +1,11 @@
 package com.esgi.groupe9.frontend.utils
 
 import com.esgi.groupe9.frontend.entity.Game
+import com.esgi.groupe9.frontend.entity.Review
 
 object DummyData {
 
-    val DUMMY_GAME: Game =
+    val DUMMY_GAME =
         Game(
             id = 1,
             name = "Titan Fall",
@@ -16,4 +17,10 @@ object DummyData {
             image = "drawable/destiny2_ps4.png",
             background = "drawable/destiny_2_background.jpeg"
         )
+
+    val DUMMY_REVIEW = Review(
+        username = "Naruto",
+        userReview = "Bacon ipsum dolor amet rump doner brisket corned beef tri-tip. Burgdoggen t-bone leberkas, tri-tip bacon beef ribs...",
+        nbStars = 4.5
+    )
 }

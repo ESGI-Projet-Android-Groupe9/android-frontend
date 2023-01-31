@@ -1,7 +1,10 @@
 package com.esgi.groupe9.frontend.entity
 
 import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Game(
     @SerializedName("_gameId")
     val id: Int,
@@ -21,4 +24,4 @@ data class Game(
     val image: String,
     @SerializedName("_background")
     val background: String,
-)
+): Parcelable

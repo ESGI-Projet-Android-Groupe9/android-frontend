@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/game_item_of_list"
     android:background="@color/gray_blue"
@@ -14,10 +13,14 @@
     <ImageView
         android:id="@+id/game_background_item_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:src="@drawable/destiny_2_background"
         android:alpha="0.15"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
         android:id="@+id/game_image_item_list"
@@ -27,7 +30,8 @@
         android:paddingBottom="10dp"
         android:src="@drawable/destiny2_ps4"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/game_name_item_list"
@@ -41,8 +45,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@id/game_image_item_list"
         app:layout_constraintRight_toLeftOf="@id/more_infos_button"
-        app:layout_constraintTop_toTopOf="@id/game_image_item_list"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="@id/game_image_item_list" />
 
     <TextView
         android:id="@+id/game_editor_item_list"
@@ -54,8 +57,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@id/game_image_item_list"
         app:layout_constraintRight_toLeftOf="@id/more_infos_button"
-        app:layout_constraintTop_toBottomOf="@+id/game_name_item_list"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/game_name_item_list"/>
 
     <TextView
         android:id="@+id/game_price_item_list"
@@ -68,8 +70,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@id/game_image_item_list"
         app:layout_constraintRight_toLeftOf="@id/more_infos_button"
-        app:layout_constraintTop_toBottomOf="@+id/game_editor_item_list"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/game_editor_item_list"/>
 
     <TextView
         android:id="@+id/more_infos_button"

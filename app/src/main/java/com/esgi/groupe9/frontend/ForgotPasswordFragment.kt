@@ -4,26 +4,38 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.esgi.groupe9.frontend.utils.Constants
 
-class ForgotPasswordActivity : AppCompatActivity() {
+class ForgotPasswordFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forgot_password)
 
-        resetPassword()
     }
 
-    private fun resetPassword() {
-        val resetPasswordButton = findViewById<Button>(R.id.forgot_password_button)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_forgot_password, container, false)
+        resetPassword(view)
+        return view
+    }
 
-        resetPasswordButton.setOnClickListener {
-            val email = findViewById<EditText>(R.id.forgot_password_email_input).text.toString()
+    private fun resetPassword(view: View) {
+        val resetPasswordButton = view?.findViewById<Button>(R.id.forgot_password_button)
+
+        resetPasswordButton?.setOnClickListener {
+            val email = view?.findViewById<EditText>(R.id.forgot_password_email_input)?.text.toString()
 
             if (!checkInputForgot(email)) return@setOnClickListener
 
@@ -37,7 +49,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                     )
                     Toast
                         .makeText(
-                            this,
+                            activity,
                             "Successfully send email to the user with the email : $email",
                             Toast.LENGTH_SHORT
                         )
@@ -51,7 +63,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                     )
                     Toast
                         .makeText(
-                            this,
+                            activity,
                             "Error while sending the email due to : ${it.message}",
                             Toast.LENGTH_SHORT
                         )
@@ -64,7 +76,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         when {
             email.isEmpty() -> {
                 Toast
-                    .makeText(this, "Please fill the email input text", Toast.LENGTH_SHORT)
+                    .makeText(activity, "Please fill the email input text", Toast.LENGTH_SHORT)
                     .show()
                 return false
             }
@@ -73,16 +85,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun redirectOnLogin() {
-        Handler().postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-        }, 2000)
+        findNavController().navigate(ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToLoginFragment())
     }
 
     companion object {
-        private const val TAG: String = "ForgotPasswordActivity"
+        private const val TAG: String = "ForgotPasswordFragment"
     }
 }
-
-

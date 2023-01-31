@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/game_item_of_list"
+    android:background="@color/gray_blue"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical">
+
+    <RatingBar
+        android:id="@+id/rating_stars_review"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize="0.1"
+        android:theme="@style/RatingBar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/review_username"/>
+
+    <TextView
+        android:id="@+id/review_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:paddingTop="10dp"
+        android:text="@string/username"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/user_review"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:paddingTop="5dp"
+        android:text="@string/user_review"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/review_username"
+        app:layout_constraintStart_toStartOf="@id/review_username" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

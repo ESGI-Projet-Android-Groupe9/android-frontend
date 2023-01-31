@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">My Steam</string>
+    <string name="app_name">android-frontend</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="game_detail_blank_fragment">Game detail blank fragment</string>
     <string name="my_likes">Mes likes</string>
     <string name="no_likes_content">Vous n\'avez encore pas liké de contenu.</string>
     <string name="add_likes_message">Cliquez sur le coeur pour en rajouter.</string>
@@ -41,7 +42,13 @@ Et fuga placeat non cumque recusandae vel quia ipsa et natus voluptatibus eos no
     <string name="create_new_account">Créer un nouveau compte</string>
     <string name="know_more">En savoir plus</string>
     <string name="short_game_description">Une description d\'un jeu mis en avant (peu être fait en dur)</string>
+    <string name="home">Accueil</string>
+    <string name="GameDetail">Détail du jeu</string>
+    <string name="Mylikes">Mes likes</string>
+    <string name="MyWhishlist">Ma liste de souhaits</string>
+    <string name="the_game_background">The game background</string>
     <string name="back">Retour</string>
-    <string name="menu_sign_out">Déconnexion</string>
+    <string name="Like">Aime</string>
+    <string name="Favorite">Favoris</string>
 
 </resources>
