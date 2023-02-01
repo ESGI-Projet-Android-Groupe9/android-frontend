@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.esgi.groupe9.frontend.entity.Game
 import com.esgi.groupe9.frontend.helper.ApiHelperImpl
+import com.esgi.groupe9.frontend.utils.Constants
 import com.esgi.groupe9.frontend.utils.RetrofitBuilder
 import com.esgi.groupe9.frontend.viewers.GameListAdapter
 import com.esgi.groupe9.frontend.viewers.OnGameListener
@@ -64,6 +65,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToWhishlistFragment())
                 return true
             }
+            R.id.button_signout_home -> {
+                // Navigate to login page
+                Constants.FIREBASE_AUTH.signOut()
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -72,7 +78,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val homeToolbar = view.findViewById<Toolbar>(R.id.home_toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(homeToolbar)
     }
-
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun setHomeGameRecycleView(view: View, navController: NavController){

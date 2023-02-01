@@ -1,9 +1,7 @@
 package com.esgi.groupe9.frontend
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.esgi.groupe9.frontend.utils.Constants
+import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_AUTH
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -27,6 +27,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
+        // Check if the user is connected
+        checkIfUserConnected()
         // Set button to signIn user
         signInUser(view)
         // Set button to Navigate to RegisterFragment
@@ -114,6 +116,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         forgotLinkPassword.setOnClickListener {
             // Navigate to ForgotPasswordFragment
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment())
+        }
+    }
+
+    private fun checkIfUserConnected() {
+        val user = FIREBASE_AUTH.currentUser
+        if (user != null) {
+            goOnHomePage()
+        } else {
+            return
         }
     }
 
