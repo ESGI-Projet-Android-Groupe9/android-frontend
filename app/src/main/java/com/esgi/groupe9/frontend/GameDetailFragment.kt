@@ -1,7 +1,7 @@
 package com.esgi.groupe9.frontend
 
 import android.os.Bundle
-import android.util.Log
+import android.text.Html
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
@@ -10,20 +10,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.esgi.groupe9.frontend.entity.Review
 import com.esgi.groupe9.frontend.utils.DummyData
 import com.esgi.groupe9.frontend.viewers.OnReviewListener
 import com.esgi.groupe9.frontend.viewers.ReviewListAdapter
-import com.esgi.groupe9.frontend.viewers.VPAdapter
-import com.google.android.material.tabs.TabLayout
-import io.grpc.NameResolver.Args
 
 class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     private val args: GameDetailFragmentArgs by navArgs()
@@ -50,9 +45,10 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         return view
     }
 
-    private fun setGameDetailsContent(view: View){
+    private fun setGameDetailsContent(view: View) {
         val gameDescriptionView = view.findViewById<TextView>(R.id.game_description_detail)
-        val gameReviewsRecyclerView = view.findViewById<RecyclerView>(R.id.game_reviews_view_in_detail)
+        val gameReviewsRecyclerView =
+            view.findViewById<RecyclerView>(R.id.game_reviews_view_in_detail)
         val reviews = listOf(
             DummyData.DUMMY_REVIEW,
             DummyData.DUMMY_REVIEW,
@@ -67,31 +63,34 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         gameDescriptionView.visibility = View.VISIBLE
         gameReviewsRecyclerView.visibility = View.GONE
 
-        gameDescriptionView.text = args.gameItem.detailedDescription
+        gameDescriptionView.text = Html.fromHtml(args.gameItem.detailedDescription)
         gameReviewsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(activity ,)
+            layoutManager = LinearLayoutManager(activity)
             adapter = ReviewListAdapter(reviews, object : OnReviewListener {
                 override fun onClicked(review: Review, position: Int) {
                     Toast.makeText(activity, "Review $position clicked", Toast.LENGTH_SHORT).show()
                 }
             })
         }
-        view.findViewById<Button>(R.id.button_description).setOnClickListener{
+        view.findViewById<Button>(R.id.button_description).setOnClickListener {
             gameReviewsRecyclerView.visibility = View.GONE
             gameDescriptionView.visibility = View.VISIBLE
-
-        view.findViewById<Button>(R.id.button_description).setBackgroundResource(R.drawable.button_description_selected)
-        view.findViewById<Button>(R.id.button_reviews).setBackgroundResource(R.drawable.button_reviews_unselected)
+            view.findViewById<Button>(R.id.button_description)
+                .setBackgroundResource(R.drawable.button_description_selected)
+            view.findViewById<Button>(R.id.button_reviews)
+                .setBackgroundResource(R.drawable.button_reviews_unselected)
         }
 
-        view.findViewById<Button>(R.id.button_reviews).setOnClickListener{
+        view.findViewById<Button>(R.id.button_reviews).setOnClickListener {
             gameDescriptionView.visibility = View.GONE
             gameReviewsRecyclerView.visibility = View.VISIBLE
-            view.findViewById<Button>(R.id.button_reviews).setBackgroundResource(R.drawable.button_reviews_selected)
-            view.findViewById<Button>(R.id.button_description).setBackgroundResource(R.drawable.button_description_unselected)
+            view.findViewById<Button>(R.id.button_reviews)
+                .setBackgroundResource(R.drawable.button_reviews_selected)
+            view.findViewById<Button>(R.id.button_description)
+                .setBackgroundResource(R.drawable.button_description_unselected)
         }
     }
-    
+
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
 
@@ -127,13 +126,13 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     }
 
     // Set the game_detail_toolbar to our current activity
-    private fun setGameDetailToolbar(view: View){
+    private fun setGameDetailToolbar(view: View) {
         val gameDetailToolbar = view.findViewById<Toolbar>(R.id.game_detail_toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(gameDetailToolbar)
     }
 
     // Set header Game in GameDetailFragment
-    private fun setHeaderGame(itemView:View){
+    private fun setHeaderGame(itemView: View) {
         val game = args.gameItem
 
         view?.findViewById<TextView>(R.id.game_name_item_detail)?.text = game.name
@@ -144,16 +143,18 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         if (gameItemImageDetail != null) {
             Glide.with(itemView).load(game.image).into(gameItemImageDetail)
         }
-        val gameItemBackgroundDetail = view?.findViewById<ImageView>(R.id.game_background_item_detail)
+        val gameItemBackgroundDetail =
+            view?.findViewById<ImageView>(R.id.game_background_item_detail)
         if (gameItemBackgroundDetail != null) {
             Glide.with(itemView).load(game.background).into(gameItemBackgroundDetail)
         }
-        val gameItemBackgroundHeadDetail = view?.findViewById<ImageView>(R.id.game_background_detail)
+        val gameItemBackgroundHeadDetail =
+            view?.findViewById<ImageView>(R.id.game_background_detail)
         if (gameItemBackgroundHeadDetail != null) {
             Glide.with(itemView).load(game.background).into(gameItemBackgroundHeadDetail)
         }
     }
-    
+
     companion object {
         private const val TAG: String = "GameDetailFragment"
     }
