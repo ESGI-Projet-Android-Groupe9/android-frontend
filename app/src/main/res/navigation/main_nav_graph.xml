@@ -82,9 +82,14 @@
         android:label="fragment_likes"
         tools:layout="@layout/fragment_likes" >
         <action
-            android:id="@+id/action_likesFragment2_to_homeFragment"
+            android:id="@+id/action_likesFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_likesFragment_to_GameDetailsFragment"
+            app:destination="@id/gameDetailFragment"
+            app:popUpTo="@id/gameDetailFragment"
             app:popUpToInclusive="true" />
         <argument
             android:name="user"

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esgi.groupe9.frontend.entity.Game
 import com.esgi.groupe9.frontend.viewers.GameListAdapter
-import com.esgi.groupe9.frontend.viewers.GameListAdapterWithoutDescription
 import com.esgi.groupe9.frontend.viewers.OnGameListener
 
 class LikesFragment : Fragment() {
@@ -46,7 +46,7 @@ class LikesFragment : Fragment() {
 
         likestoolbar.setNavigationOnClickListener {
             // Navigate (Return) to Homefragment
-            findNavController().navigate(LikesFragmentDirections.actionLikesFragment2ToHomeFragment())
+            findNavController().navigate(LikesFragmentDirections.actionLikesFragmentToHomeFragment())
         }
     }
 
@@ -58,20 +58,28 @@ class LikesFragment : Fragment() {
 
     // Set Games Likes View
     private fun setGamesRecycleView(view: View, games: List<Game>) {
-        val empty_fragment_view = view.findViewById<ConstraintLayout>(R.id.empty_likes_fragment)
-        val likes_fragment_view = view.findViewById<RecyclerView>(R.id.likes_list_view)
+        val emptyFragmentView = view.findViewById<ConstraintLayout>(R.id.empty_likes_fragment)
+        val likesFragmentView = view.findViewById<RecyclerView>(R.id.likes_list_view)
 
-        likes_fragment_view.apply {
+        likesFragmentView.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = GameListAdapterWithoutDescription(games)
+            adapter = GameListAdapter(games, object : OnGameListener {
+                override fun onClicked(game: Game, position: Int) {
+                    findNavController().navigate(
+                        LikesFragmentDirections.actionLikesFragmentToGameDetailsFragment(
+                            game
+                        )
+                    )
+                }
+            })
         }
 
         if (games.isEmpty()) {
-            empty_fragment_view.visibility = View.VISIBLE
-            likes_fragment_view.visibility = View.GONE
+            emptyFragmentView.visibility = View.VISIBLE
+            likesFragmentView.visibility = View.GONE
         } else {
-            empty_fragment_view.visibility = View.GONE
-            likes_fragment_view.visibility = View.VISIBLE
+            emptyFragmentView.visibility = View.GONE
+            likesFragmentView.visibility = View.VISIBLE
         }
     }
 }

@@ -58,7 +58,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         when (item.itemId) {
             R.id.home_like -> {
                 var userFromLikesList: User? = null
-
                 // Get User from the Database to send it to likes list to retrieve games
                 FIREBASE_FIRESTORE.collection("users")
                     .whereEqualTo("userId", FIREBASE_AUTH.currentUser?.uid).get()
@@ -66,15 +65,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         for (document in documents) {
                             userFromLikesList = document.toObject(User::class.java)
                         }
-
-                        Log.d(TAG, userFromLikesList.toString())
-
-                        // Navigate to Likes List
+                        // Navigate to Likes List and pass the user to retrieve info in the likes list page
                         findNavController().navigate(
                             HomeFragmentDirections.actionHomeFragmentToLikesFragment2(
                                 userFromLikesList
                             )
                         )
+                    }
+                    .addOnFailureListener {
+                        Log.d(TAG, it.message.toString())
                     }
             }
             R.id.home_favorite -> {
