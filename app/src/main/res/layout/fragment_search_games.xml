@@ -3,18 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SearchGameFragment">
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/dark_blue">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/search_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/back"
+            app:title="@string/search"
+            app:titleTextColor="@color/white"
+            android:background="@color/gray_blue"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/search_field_search"
-            layout="@layout/search_text_field_home"/>
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_field_search_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:hint="@string/search_game_hint"
+            android:textColorHint="@color/white"
+            android:background="@color/gray_blue"
+            android:textColor="@color/white"
+            android:queryHint="@string/search_game_hint"
+            app:layout_constraintTop_toBottomOf="@id/search_toolbar"/>
 
         <TextView
             android:id="@+id/game_list_title_search"
@@ -23,15 +42,19 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:text="Nombres de résultats: %d"
-            android:textColor="@color/white" />
-        <!--        TODO add string value-->
+            android:text="@string/nb_search_result"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/search_field_search_fragment"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/games_list_view_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:scrollbars="vertical"
-            android:background="#1A2024"/>
-    </LinearLayout>
+            android:background="#1A2024"
+            app:layout_constraintTop_toBottomOf="@id/game_list_title_search"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
