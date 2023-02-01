@@ -119,6 +119,6 @@ class SearchGameFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG: String = "SearchGameFragment"
+        const val TAG: String = "SearchGameFragment"
     }
 }
