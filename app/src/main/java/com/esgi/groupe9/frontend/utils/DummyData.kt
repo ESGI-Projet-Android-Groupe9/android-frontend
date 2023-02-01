@@ -55,8 +55,9 @@ object DummyData {
     )
 
     val DUMMY_REVIEW = Review(
+        reviewId = "343",
         username = "Naruto",
-        userReview = "Bacon ipsum dolor amet rump doner brisket corned beef tri-tip. Burgdoggen t-bone leberkas, tri-tip bacon beef ribs...",
+        reviewContent = "Bacon ipsum dolor amet rump doner brisket corned beef tri-tip. Burgdoggen t-bone leberkas, tri-tip bacon beef ribs...",
         nbStars = 4.5
     )
 }

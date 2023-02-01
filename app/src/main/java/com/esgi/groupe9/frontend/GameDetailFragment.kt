@@ -2,6 +2,7 @@ package com.esgi.groupe9.frontend
 
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
@@ -9,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,11 +18,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.esgi.groupe9.frontend.entity.Review
+import com.esgi.groupe9.frontend.helper.ApiHelperImpl
 import com.esgi.groupe9.frontend.utils.DummyData
+import com.esgi.groupe9.frontend.utils.RetrofitBuilder
 import com.esgi.groupe9.frontend.viewers.OnReviewListener
 import com.esgi.groupe9.frontend.viewers.ReviewListAdapter
+import kotlinx.coroutines.*
 
 class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
+    private val apiHelper = ApiHelperImpl(RetrofitBuilder.apiService)
     private val args: GameDetailFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,29 +55,20 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         val gameDescriptionView = view.findViewById<TextView>(R.id.game_description_detail)
         val gameReviewsRecyclerView =
             view.findViewById<RecyclerView>(R.id.game_reviews_view_in_detail)
-        val reviews = listOf(
-            DummyData.DUMMY_REVIEW,
-            DummyData.DUMMY_REVIEW,
-            DummyData.DUMMY_REVIEW,
-            DummyData.DUMMY_REVIEW,
-            DummyData.DUMMY_REVIEW,
-            DummyData.DUMMY_REVIEW,
-            DummyData.DUMMY_REVIEW,
-            DummyData.DUMMY_REVIEW,
-        )
+        val emptyReviewsText = view.findViewById<TextView>(R.id.empty_review_view_in_detail)
+        val game = args.gameItem
 
+        // Set description visible by default
         gameDescriptionView.visibility = View.VISIBLE
         gameReviewsRecyclerView.visibility = View.GONE
 
-        gameDescriptionView.text = Html.fromHtml(args.gameItem.detailedDescription)
-        gameReviewsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = ReviewListAdapter(reviews, object : OnReviewListener {
-                override fun onClicked(review: Review, position: Int) {
-                    Toast.makeText(activity, "Review $position clicked", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
+        // Set game description in description tab
+        gameDescriptionView.text = Html.fromHtml(game.detailedDescription)
+
+        // Request from api and set Reviews in RecycleView
+        setReviewsRecycleView(gameReviewsRecyclerView, emptyReviewsText, game.id)
+
+        // Show Description tab
         view.findViewById<Button>(R.id.button_description).setOnClickListener {
             gameReviewsRecyclerView.visibility = View.GONE
             gameDescriptionView.visibility = View.VISIBLE
@@ -81,6 +78,7 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
                 .setBackgroundResource(R.drawable.button_reviews_unselected)
         }
 
+        // Show Reviews tab
         view.findViewById<Button>(R.id.button_reviews).setOnClickListener {
             gameDescriptionView.visibility = View.GONE
             gameReviewsRecyclerView.visibility = View.VISIBLE
@@ -88,6 +86,38 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
                 .setBackgroundResource(R.drawable.button_reviews_selected)
             view.findViewById<Button>(R.id.button_description)
                 .setBackgroundResource(R.drawable.button_description_unselected)
+        }
+    }
+
+    // Request from api and set Reviews in RecycleView
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun setReviewsRecycleView(gameReviewsRecyclerView: RecyclerView, emptyReviewsText: TextView, gameId: Int) {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                // Get the games from the API Request
+                val reviews = withContext(Dispatchers.IO) { apiHelper.getReviews(gameId) }
+
+                if (reviews.isEmpty()){
+                    // Show empty reviews text
+                    emptyReviewsText.visibility = View.VISIBLE
+                    gameReviewsRecyclerView.visibility = View.GONE
+                } else {
+                    // Mask recycleView
+                    emptyReviewsText.visibility = View.GONE
+
+                    // Fill Reviews in recycle
+                    gameReviewsRecyclerView.apply {
+                        layoutManager = LinearLayoutManager(activity)
+                        adapter = ReviewListAdapter(reviews, object : OnReviewListener {
+                            override fun onClicked(review: Review, position: Int) {
+                                Toast.makeText(activity, "Review $position clicked", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d(TAG, e.toString())
+            }
         }
     }
 

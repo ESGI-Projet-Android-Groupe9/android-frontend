@@ -53,5 +53,6 @@ Et fuga placeat non cumque recusandae vel quia ipsa et natus voluptatibus eos no
     <string name="sign_out">Déconnexion</string>
     <string name="search">Recherche</string>
     <string name="nb_search_result">Nombres de résultats: ?</string>
+    <string name="empty_reviews">Aucun avis sur ce jeu.</string>
 
 </resources>
