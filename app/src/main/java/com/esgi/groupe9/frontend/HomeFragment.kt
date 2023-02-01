@@ -60,7 +60,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 var userFromLikesList: User? = null
                 // Get User from the Database to send it to likes list to retrieve games
                 FIREBASE_FIRESTORE.collection("users")
-                    .whereEqualTo("userId", FIREBASE_AUTH.currentUser?.uid).get()
+                    .whereEqualTo("userId", FIREBASE_AUTH.currentUser?.uid)
+                    .get()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
                             userFromLikesList = document.toObject(User::class.java)

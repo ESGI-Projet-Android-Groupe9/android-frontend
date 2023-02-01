@@ -159,7 +159,8 @@ class RegisterFragment : Fragment() {
 
         Log.d(TAG, "Try to add a User to the FireStore Database")
         FIREBASE_FIRESTORE.collection("users")
-            .add(user)
+            .document(userId)
+            .set(user)
             .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
                 Log.d(

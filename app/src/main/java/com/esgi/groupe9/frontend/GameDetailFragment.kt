@@ -1,7 +1,9 @@
 package com.esgi.groupe9.frontend
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
@@ -16,9 +18,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.esgi.groupe9.frontend.entity.Review
+import com.esgi.groupe9.frontend.entity.User
+import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_AUTH
+import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_FIRESTORE
 import com.esgi.groupe9.frontend.utils.DummyData
 import com.esgi.groupe9.frontend.viewers.OnReviewListener
 import com.esgi.groupe9.frontend.viewers.ReviewListAdapter
+import com.google.firebase.firestore.FieldValue
 
 class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     private val args: GameDetailFragmentArgs by navArgs()
@@ -109,12 +115,20 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     }
 
     // Set on Action of onSelect an option
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.game_detail_like -> {
-                // TODO Add action onClick to add this item game in the likes list of the user
-                //  and modify the view to have a filled like icon
-                return true
+                val game = args.gameItem
+                val userId = FIREBASE_AUTH.currentUser?.uid.toString()
+
+                FIREBASE_FIRESTORE
+                    .collection("users")
+                    .document(userId)
+                    .update("likesList", FieldValue.arrayUnion(game))
+                    .addOnCompleteListener {
+                        item.icon = context?.resources?.getDrawable(R.drawable.like_full)
+                    }
             }
             R.id.game_detail_favorite -> {
                 // TODO Add action onClick to add this item game in the wishlist of the user
@@ -129,6 +143,39 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     private fun setGameDetailToolbar(view: View) {
         val gameDetailToolbar = view.findViewById<Toolbar>(R.id.game_detail_toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(gameDetailToolbar)
+        checkIfUserHadGame()
+    }
+
+    private fun checkIfUserHadGame() {
+        val userId = FIREBASE_AUTH.currentUser?.uid.toString()
+        val gameId = args.gameItem.id
+//       val buttonLike: View? = view?.findViewById<View>(R.id.game_detail_like)
+
+        FIREBASE_FIRESTORE
+            .collection("users")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val userSearched = document.toObject(User::class.java)
+                    val likedGameList = userSearched.likesList!!
+
+                    for (likeGame in likedGameList) {
+                        if (gameId == likeGame.id) {
+                            // TODO: when the game is found change the drawable with a filled like button
+                            Log.d(
+                                TAG,
+                                "User has already liked this game : ${likeGame.id.toString()}"
+                            )
+                            break
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Log.d(TAG, it.message.toString())
+            }
+
     }
 
     // Set header Game in GameDetailFragment
@@ -156,6 +203,6 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     }
 
     companion object {
-        private const val TAG: String = "GameDetailFragment"
+        const val TAG: String = "GameDetailFragment"
     }
 }

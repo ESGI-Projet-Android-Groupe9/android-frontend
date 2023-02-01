@@ -5,11 +5,13 @@
         android:icon="@drawable/like"
         android:title="@string/Like"
         android:contentDescription="@string/Like"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        />
 
     <item android:id="@+id/game_detail_favorite"
         android:icon="@drawable/whishlist"
         android:title="@string/Favorite"
         android:contentDescription="@string/Favorite"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        />
 </menu>
