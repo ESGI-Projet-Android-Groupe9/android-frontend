@@ -72,7 +72,7 @@
             android:layout_height="40sp"
             android:textColor="@color/white"
             android:background="#1E262C"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:hint="@string/passwordHint"
             android:textColorHint="@color/white"
             android:layout_marginTop="10dp"
