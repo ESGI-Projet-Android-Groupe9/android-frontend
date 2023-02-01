@@ -51,5 +51,7 @@ Et fuga placeat non cumque recusandae vel quia ipsa et natus voluptatibus eos no
     <string name="Like">Aime</string>
     <string name="Favorite">Favoris</string>
     <string name="sign_out">Déconnexion</string>
+    <string name="search">Recherche</string>
+    <string name="nb_search_result">Nombres de résultats: ?</string>
 
 </resources>

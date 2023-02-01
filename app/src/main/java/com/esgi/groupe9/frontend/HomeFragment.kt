@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -41,6 +42,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // Set HomeFragment toolbar
         setHomeToolbar(view)
+
+        // Set search view of HomeFragment
+        setOnSearchFieldClick(view, navController)
 
         // Set HomeFragment Games RecycleView
         setHomeGameRecycleView(view, navController)
@@ -142,7 +146,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    // Navigate to SearchGameFragment
+    private fun setOnSearchFieldClick(view: View, navController: NavController){
+        val searchField = view.findViewById<TextView>(R.id.search_field)
+        searchField.setOnClickListener {
+            navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchGameFragment())
+        }
+    }
+
     companion object {
-        private const val TAG: String = "HomeFragment"
+        const val TAG: String = "HomeFragment"
     }
 }
