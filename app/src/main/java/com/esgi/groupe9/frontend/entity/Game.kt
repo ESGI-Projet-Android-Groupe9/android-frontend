@@ -7,21 +7,21 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Game(
     @SerializedName("_gameId")
-    val id: Int,
+    val id: Int? = 0,
     @SerializedName("_name")
-    val name: String,
+    val name: String? = "",
     @SerializedName("_editor")
-    val editor: List<String>,
+    val editor: List<String>? = listOf(),
     @SerializedName("_detailedDescription")
-    val detailedDescription: String,
+    val detailedDescription: String? = "",
     @SerializedName("_aboutTheGame")
-    val aboutTheGame: String,
+    val aboutTheGame: String? = "",
     @SerializedName("_shortDescription")
-    val shortDescription: String,
+    val shortDescription: String? = "",
     @SerializedName("_price")
-    val price: Number,
+    val price: String? = "",
     @SerializedName("_headerImage")
-    val image: String,
+    val image: String? = "",
     @SerializedName("_background")
-    val background: String,
+    val background: String? = "",
 ): Parcelable

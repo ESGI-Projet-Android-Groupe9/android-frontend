@@ -13,9 +13,9 @@ object DummyData {
             detailedDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
             aboutTheGame = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
             shortDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
-            price = 10.00,
-            image = "drawable/destiny2_ps4.png",
-            background = "drawable/destiny_2_background.jpeg"
+            price = "10.00",
+            image = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/hero_capsule.jpg",
+            background = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg"
         )
 
     val DUMMY_REVIEW = Review(
