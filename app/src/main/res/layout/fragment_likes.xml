@@ -44,16 +44,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="20dp"/>
 
-        <TextView
-            android:id="@+id/likes_page_title"
-            android:layout_width="wrap_content"
-            android:layout_height="50sp"
-            android:textColor="@color/white"
-            android:text="@string/my_likes"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/likes_toolbar"
-            app:layout_constraintLeft_toRightOf="@id/guidelineStart"
-            app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
 
         <ImageView
             android:id="@+id/empty_likes_page_icon"
@@ -62,7 +52,7 @@
             android:paddingTop="100dp"
             android:foregroundGravity="center"
             android:src="@drawable/likes"
-            app:layout_constraintTop_toBottomOf="@id/likes_page_title"
+            app:layout_constraintTop_toBottomOf="@id/likes_toolbar"
             app:layout_constraintLeft_toRightOf="@id/guidelineStart"
             app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
 

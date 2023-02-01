@@ -44,18 +44,7 @@
             app:titleTextColor="@color/white"
             android:background="@color/gray_blue"
             tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/wishlist_page_title"
-            android:layout_width="wrap_content"
-            android:layout_height="50sp"
-            android:textColor="@color/white"
-            android:text="@string/my_wishlist"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/whishlist_toolbar"
-            app:layout_constraintLeft_toRightOf="@id/guidelineStart"
-            app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
-
+        
         <ImageView
             android:id="@+id/empty_wishlist_page_icon"
             android:layout_width="wrap_content"
@@ -63,7 +52,7 @@
             android:paddingTop="100dp"
             android:foregroundGravity="center"
             android:src="@drawable/whishlists"
-            app:layout_constraintTop_toBottomOf="@id/wishlist_page_title"
+            app:layout_constraintTop_toBottomOf="@id/whishlist_toolbar"
             app:layout_constraintLeft_toRightOf="@id/guidelineStart"
             app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
 
