@@ -121,8 +121,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun checkIfUserConnected() {
-        val user = FIREBASE_AUTH.currentUser
-        if (user != null) {
+        val userId = FIREBASE_AUTH.currentUser?.uid
+        if (userId != null) {
             goOnHomePage()
         } else {
             return

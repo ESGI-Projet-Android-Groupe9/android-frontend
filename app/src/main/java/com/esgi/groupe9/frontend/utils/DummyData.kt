@@ -13,7 +13,7 @@ object DummyData {
             detailedDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
             aboutTheGame = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
             shortDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
-            price = 10.00,
+            price = "10.00",
             image = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/hero_capsule.jpg",
             background = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg"
         )

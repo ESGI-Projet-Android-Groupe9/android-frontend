@@ -3,19 +3,26 @@ package com.esgi.groupe9.frontend
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.esgi.groupe9.frontend.entity.Game
+import com.esgi.groupe9.frontend.entity.User
 import com.esgi.groupe9.frontend.helper.ApiHelperImpl
-import com.esgi.groupe9.frontend.utils.Constants
+import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_AUTH
+import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_FIRESTORE
 import com.esgi.groupe9.frontend.utils.RetrofitBuilder
 import com.esgi.groupe9.frontend.viewers.GameListAdapter
 import com.esgi.groupe9.frontend.viewers.OnGameListener
@@ -30,8 +37,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
@@ -57,32 +63,46 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home_like -> {
-                // Navigate to Likes list
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLikesFragment2())
-                return true
+                var userFromLikesList: User? = null
+                // Get User from the Database to send it to likes list to retrieve games
+                FIREBASE_FIRESTORE.collection("users")
+                    .whereEqualTo("userId", FIREBASE_AUTH.currentUser?.uid)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            userFromLikesList = document.toObject(User::class.java)
+                        }
+                        // Navigate to Likes List and pass the user to retrieve info in the likes list page
+                        findNavController().navigate(
+                            HomeFragmentDirections.actionHomeFragmentToLikesFragment2(
+                                userFromLikesList
+                            )
+                        )
+                    }
+                    .addOnFailureListener {
+                        Log.d(TAG, it.message.toString())
+                    }
             }
             R.id.home_favorite -> {
                 // Navigate to wish list
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToWhishlistFragment())
-                return true
             }
             R.id.button_signout_home -> {
                 // Navigate to login page
-                Constants.FIREBASE_AUTH.signOut()
+                FIREBASE_AUTH.signOut()
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setHomeToolbar(view: View){
+    private fun setHomeToolbar(view: View) {
         val homeToolbar = view.findViewById<Toolbar>(R.id.home_toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(homeToolbar)
     }
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun setHomeGameRecycleView(view: View, navController: NavController){
-
         GlobalScope.launch(Dispatchers.Main) {
             view.findViewById<ProgressBar>(R.id.progressbar).visibility = View.VISIBLE
 
@@ -107,7 +127,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     // Fill the first Most played game information in the top of the home page
-    private fun setFirstMostPlayedInfos(view: View, navController: NavController, bestGame: Game){
+    private fun setFirstMostPlayedInfos(view: View, navController: NavController, bestGame: Game) {
         view.findViewById<TextView>(R.id.game_name_home)?.apply {
             text = bestGame.name
         }
@@ -130,18 +150,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     // Set Games Recycle View
-    private fun setGamesRecycleView(view: View, navController: NavController, games: List<Game>){
+    private fun setGamesRecycleView(view: View, navController: NavController, games: List<Game>) {
         view.findViewById<RecyclerView>(R.id.games_list_view_home).apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = GameListAdapter(games.subList(1, games.size), object : OnGameListener {
                 override fun onClicked(game: Game, position: Int) {
                     Toast.makeText(
-                        activity,
-                        "Game $position clicked",
-                        Toast.LENGTH_SHORT
+                        activity, "Game $position clicked", Toast.LENGTH_SHORT
+                    ).show()
+                    navController.navigate(
+                        HomeFragmentDirections.actionHomeFragmentToGameDetailFragment(
+                            game
+                        )
                     )
-                        .show()
-                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToGameDetailFragment(game))
                 }
             })
         }

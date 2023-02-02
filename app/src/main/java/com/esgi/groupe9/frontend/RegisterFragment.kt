@@ -13,8 +13,11 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.esgi.groupe9.frontend.entity.Game
 import com.esgi.groupe9.frontend.entity.User
 import com.esgi.groupe9.frontend.utils.Constants
+import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_FIRESTORE
+import com.esgi.groupe9.frontend.utils.DummyData
 
 
 class RegisterFragment : Fragment() {
@@ -119,7 +122,8 @@ class RegisterFragment : Fragment() {
 
         // Set onClick on registerButton
         registerButton?.setOnClickListener {
-            val username = view.findViewById<EditText>(R.id.username_input_register)?.text.toString()
+            val username =
+                view.findViewById<EditText>(R.id.username_input_register)?.text.toString()
             val email = view.findViewById<EditText>(R.id.email_input_register)?.text.toString()
             val passwordEditText = view.findViewById<EditText>(R.id.password_input_register)
             val password = passwordEditText?.text.toString()
@@ -170,13 +174,14 @@ class RegisterFragment : Fragment() {
 
     // Save a User with the indicated parameters from Firebase
     private fun saveUserToDatabase(view: View, userId: String, username: String, email: String) {
-        val likesList = listOf<String>()
-        val wishlist = listOf<String>()
+        val likesList = listOf<Game>()
+        val wishlist = listOf<Game>()
         val user = User(userId, username, email, likesList, wishlist)
 
         Log.d(TAG, "Try to add a User to the FireStore Database")
-        Constants.FIREBASE_FIRESTORE.collection("users")
-            .add(user)
+        FIREBASE_FIRESTORE.collection("users")
+            .document(userId)
+            .set(user)
             .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
                 Log.d(

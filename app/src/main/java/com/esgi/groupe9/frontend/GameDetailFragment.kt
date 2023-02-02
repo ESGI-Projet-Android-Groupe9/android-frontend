@@ -1,5 +1,6 @@
 package com.esgi.groupe9.frontend
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -18,16 +19,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.esgi.groupe9.frontend.entity.Review
+import com.esgi.groupe9.frontend.entity.User
+import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_AUTH
+import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_FIRESTORE
 import com.esgi.groupe9.frontend.helper.ApiHelperImpl
 import com.esgi.groupe9.frontend.utils.DummyData
 import com.esgi.groupe9.frontend.utils.RetrofitBuilder
 import com.esgi.groupe9.frontend.viewers.OnReviewListener
 import com.esgi.groupe9.frontend.viewers.ReviewListAdapter
+import com.google.firebase.firestore.FieldValue
 import kotlinx.coroutines.*
 
 class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     private val apiHelper = ApiHelperImpl(RetrofitBuilder.apiService)
     private val args: GameDetailFragmentArgs by navArgs()
+    lateinit var menu: Menu
+    private var isPresent: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,15 +45,14 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_game_details, container, false)
-
         // Set the GameDetailFragment toolbar
         setGameDetailToolbar(view)
-
         // Set the game detail content
         setGameDetailsContent(view)
+        // Check if the user had already the game in his LikeList.
+        checkIfUserHadGameInLikesList()
 
         return view
     }
@@ -123,9 +129,9 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
-
-        // Set header Game in GameDetailFragment
+        // Set header Game in GameDetailFragment.
         setHeaderGame(itemView)
+        // Retrieve the toolbar to navigate between fragment.
         val gameDetailToolbar = view?.findViewById<Toolbar>(R.id.game_detail_toolbar)
         gameDetailToolbar?.setNavigationOnClickListener {
             findNavController().navigate(GameDetailFragmentDirections.actionGameDetailFragmentToHomeFragment())
@@ -136,20 +142,20 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_menu_game_detail, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        this.menu = menu
     }
 
+    // TODO : You can't click several times on the
+    //  Menu Item Like or Wished of GameDetailFragment check the behaviour
     // Set on Action of onSelect an option
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.game_detail_like -> {
-                // TODO Add action onClick to add this item game in the likes list of the user
-                //  and modify the view to have a filled like icon
-                return true
-            }
-            R.id.game_detail_favorite -> {
-                // TODO Add action onClick to add this item game in the wishlist of the user
-                //  and modify the view to have a filled wishlist icon
-                return true
+                if (!isPresent) {
+                    addGameToLikeList(item)
+                } else {
+                    removeGameToLikeList(item)
+                }
             }
         }
         return super.onOptionsItemSelected(item)
@@ -185,7 +191,71 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         }
     }
 
+    private fun checkIfUserHadGameInLikesList() {
+        val userId = FIREBASE_AUTH.currentUser?.uid.toString()
+        val gameId = args.gameItem.id
+
+        FIREBASE_FIRESTORE
+            .collection("users")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val userSearched = document.toObject(User::class.java)
+                    val likedGameList = userSearched.likesList!!
+
+                    for (likeGame in likedGameList) {
+                        if (gameId == likeGame.id) {
+                            Log.d(
+                                TAG,
+                                "User has already liked this game : ${likeGame.id.toString()}"
+                            )
+                            menu.getItem(0).icon =
+                                context?.resources?.getDrawable(R.drawable.like_full)
+                            isPresent = true
+                        } else {
+                            Log.d(
+                                TAG,
+                                "User hasn't liked this game yet : ${likeGame.id.toString()}"
+                            )
+                            menu.getItem(0).icon =
+                                context?.resources?.getDrawable(R.drawable.like)
+                            isPresent = false
+                        }
+                    }
+                }
+            }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun addGameToLikeList(item: MenuItem) {
+        val game = args.gameItem
+        val userId = FIREBASE_AUTH.currentUser?.uid.toString()
+
+        FIREBASE_FIRESTORE
+            .collection("users")
+            .document(userId)
+            .update("likesList", FieldValue.arrayUnion(game))
+            .addOnSuccessListener {
+                item.icon = context?.resources?.getDrawable(R.drawable.like_full)
+                item.isEnabled = true
+            }
+    }
+
+    private fun removeGameToLikeList(item: MenuItem) {
+        val game = args.gameItem
+        val userId = FIREBASE_AUTH.currentUser?.uid.toString()
+
+        FIREBASE_FIRESTORE
+            .collection("users")
+            .document(userId)
+            .update("likesList", FieldValue.arrayRemove(game))
+            .addOnSuccessListener {
+                item.icon = context?.resources?.getDrawable(R.drawable.like)
+            }
+    }
+
     companion object {
-        private const val TAG: String = "GameDetailFragment"
+        const val TAG: String = "GameDetailFragment"
     }
 }

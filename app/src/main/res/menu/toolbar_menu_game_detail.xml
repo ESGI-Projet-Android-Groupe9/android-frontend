@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_menu_game_detail"
+    >
     <item android:id="@+id/game_detail_like"
         android:icon="@drawable/like"
         android:title="@string/Like"
         android:contentDescription="@string/Like"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        />
 
     <item android:id="@+id/game_detail_favorite"
         android:icon="@drawable/whishlist"
         android:title="@string/Favorite"
         android:contentDescription="@string/Favorite"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        />
 </menu>

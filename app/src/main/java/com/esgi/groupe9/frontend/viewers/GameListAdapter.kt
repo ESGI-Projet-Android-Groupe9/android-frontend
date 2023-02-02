@@ -18,6 +18,7 @@ class GameListAdapter(
     private val listener: OnGameListener,
 ) : RecyclerView.Adapter<GameViewHolder>(), Filterable {
 
+
     override fun getItemCount(): Int = games.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
