@@ -143,18 +143,8 @@ class RegisterFragment : Fragment() {
 
     // Save a User with the indicated parameters from Firebase
     private fun saveUserToDatabase(view: View, userId: String, username: String, email: String) {
-        val likesList = listOf(
-            DummyData.DUMMY_GAME,
-            DummyData.DUMMY_GAME,
-            DummyData.DUMMY_GAME,
-            DummyData.DUMMY_GAME
-        )
-        val wishlist = listOf(
-            DummyData.DUMMY_GAME,
-            DummyData.DUMMY_GAME,
-            DummyData.DUMMY_GAME,
-            DummyData.DUMMY_GAME
-        )
+        val likesList = listOf<Game>()
+        val wishlist = listOf<Game>()
         val user = User(userId, username, email, likesList, wishlist)
 
         Log.d(TAG, "Try to add a User to the FireStore Database")

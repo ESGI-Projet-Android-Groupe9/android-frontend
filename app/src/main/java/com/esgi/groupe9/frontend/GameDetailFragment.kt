@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FieldValue
 
 class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     private val args: GameDetailFragmentArgs by navArgs()
+    lateinit var menu: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,6 +113,7 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_menu_game_detail, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        this.menu = menu
     }
 
     // Set on Action of onSelect an option
@@ -149,7 +151,6 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     private fun checkIfUserHadGame() {
         val userId = FIREBASE_AUTH.currentUser?.uid.toString()
         val gameId = args.gameItem.id
-//       val buttonLike: View? = view?.findViewById<View>(R.id.game_detail_like)
 
         FIREBASE_FIRESTORE
             .collection("users")
@@ -167,6 +168,8 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
                                 TAG,
                                 "User has already liked this game : ${likeGame.id.toString()}"
                             )
+                            menu.getItem(0).icon =
+                                context?.resources?.getDrawable(R.drawable.like_full)
                             break
                         }
                     }
