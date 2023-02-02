@@ -39,7 +39,21 @@ class RegisterFragment : Fragment() {
     // Check if the password and confirmPassword are equivalent
     private fun checkPasswordEquality(view: View) {
         val confirmPassword = view.findViewById<EditText>(R.id.confirm_password_input_register)
+        val password = view.findViewById<EditText>(R.id.password_input_register)
         confirmPassword.addTextChangedListener {
+            val registerButton = view.findViewById<Button>(R.id.create_account_button)
+            val password = view.findViewById<EditText>(R.id.password_input_register)
+            if (confirmPassword.text.toString() == password.text.toString()) {
+                registerButton.isEnabled = true
+                registerButton.background.alpha = 255
+                registerButton.setTextColor(Color.WHITE)
+            } else {
+                registerButton.isEnabled = false
+                registerButton.background.alpha = 100
+                registerButton.setTextColor(Color.GRAY)
+            }
+        }
+        password.addTextChangedListener {
             val registerButton = view.findViewById<Button>(R.id.create_account_button)
             val password = view.findViewById<EditText>(R.id.password_input_register)
             if (confirmPassword.text.toString() == password.text.toString()) {
@@ -133,7 +147,13 @@ class RegisterFragment : Fragment() {
                 .addOnFailureListener {
                     var passwordMessageError = "${it.message}"
                     Log.d(TAG, "Failed to create user due to : ${it.message}")
-
+                    Toast
+                        .makeText(
+                            activity,
+                            "Failed to create user due to : ${it.message}",
+                            Toast.LENGTH_SHORT
+                        )
+                        .show()
                     if(passwordMessageError=="The given password is invalid. [ Password should be at least 6 characters ]"){
                        passwordEditText.setBackgroundResource(R.drawable.button_border_red)
                         val icon = resources.getDrawable(R.drawable.warning)
