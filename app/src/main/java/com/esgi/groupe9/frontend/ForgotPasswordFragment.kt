@@ -28,6 +28,9 @@ class ForgotPasswordFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_forgot_password, container, false)
         resetPassword(view)
+
+        // Set on click on return button to LoginFragment
+        goOnLoginFragment(view)
         return view
     }
 
@@ -84,7 +87,18 @@ class ForgotPasswordFragment : Fragment() {
         return true
     }
 
+    // Set button to navigate to LoginFragment
+    private fun goOnLoginFragment(view: View) {
+        val returnButton = view.findViewById<Button>(R.id.return_login_page_forgot)
+        returnButton.setOnClickListener {
+            // Navigate to LoginFragment
+            findNavController().navigate(ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToLoginFragment())
+        }
+    }
+
+    // Navigate (or Return) to LoginFragment
     private fun redirectOnLogin() {
+        // Navigate to LoginFragment
         findNavController().navigate(ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToLoginFragment())
     }
 

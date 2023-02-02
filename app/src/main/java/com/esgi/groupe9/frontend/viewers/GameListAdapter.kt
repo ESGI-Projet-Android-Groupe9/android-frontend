@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -12,9 +14,10 @@ import com.esgi.groupe9.frontend.R
 import com.esgi.groupe9.frontend.entity.Game
 
 class GameListAdapter(
-    private val games: List<Game>,
+    private var games: List<Game>,
     private val listener: OnGameListener,
-) : RecyclerView.Adapter<GameViewHolder>() {
+) : RecyclerView.Adapter<GameViewHolder>(), Filterable {
+
 
     override fun getItemCount(): Int = games.size
 
@@ -26,12 +29,20 @@ class GameListAdapter(
         )
     }
 
+    fun setFilteredList(foundGames: List<Game>){
+        games = foundGames
+    }
+
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         val game = games[position]
         holder.updateGame(game)
         holder.itemView.setOnClickListener {
             listener.onClicked(game, position)
         }
+    }
+
+    override fun getFilter(): Filter? {
+        return null;
     }
 }
 
@@ -49,7 +60,7 @@ class GameViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     fun updateGame(game: Game) {
         gameName.text = game.name
         gameEditor.text = game.editor.toString()
-        gamePrice.text = "Prix: ${game.price} €"
+        gamePrice.text = "Prix: ${game.price}"
         Glide.with(itemView).load(game.image).into(gameImage)
         Glide.with(itemView).load(game.background).into(gameBackgroundImage)
     }

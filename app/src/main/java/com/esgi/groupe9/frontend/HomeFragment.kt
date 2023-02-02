@@ -7,7 +7,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.*
+import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -42,6 +45,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // Set HomeFragment toolbar
         setHomeToolbar(view)
+
+        // Set search view of HomeFragment
+        setOnSearchFieldClick(view, navController)
 
         // Set HomeFragment Games RecycleView
         setHomeGameRecycleView(view, navController)
@@ -96,8 +102,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    private fun setHomeGameRecycleView(view: View, navController: NavController) {
+    private fun setHomeGameRecycleView(view: View, navController: NavController){
         GlobalScope.launch(Dispatchers.Main) {
+            view.findViewById<ProgressBar>(R.id.progressbar).visibility = View.VISIBLE
+
             try {
                 // Get the games from the API Request
                 val gamesFromApi = withContext(Dispatchers.IO) { apiHelper.getGames() }
@@ -105,6 +113,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 // Get the first Most played game
                 val bestGame = gamesFromApi[0]
 
+                view.findViewById<ProgressBar>(R.id.progressbar).visibility = View.GONE
+                
                 // Fill the first Most played game information in the top of the home page
                 setFirstMostPlayedInfos(view, navController, bestGame)
 
@@ -145,7 +155,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(activity)
             adapter = GameListAdapter(games.subList(1, games.size), object : OnGameListener {
                 override fun onClicked(game: Game, position: Int) {
-                    // TODO remove Toast or not
                     Toast.makeText(
                         activity, "Game $position clicked", Toast.LENGTH_SHORT
                     ).show()
@@ -159,7 +168,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    // Navigate to SearchGameFragment
+    private fun setOnSearchFieldClick(view: View, navController: NavController){
+        val searchField = view.findViewById<TextView>(R.id.search_field)
+        searchField.setOnClickListener {
+            navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchGameFragment())
+        }
+    }
+
     companion object {
-        private const val TAG: String = "HomeFragment"
+        const val TAG: String = "HomeFragment"
     }
 }

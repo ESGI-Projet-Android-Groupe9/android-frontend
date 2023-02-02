@@ -67,6 +67,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         "Failed to login user due to : ${it.message}",
                         Toast.LENGTH_SHORT
                     ).show()
+                    
                 }
         }
     }
