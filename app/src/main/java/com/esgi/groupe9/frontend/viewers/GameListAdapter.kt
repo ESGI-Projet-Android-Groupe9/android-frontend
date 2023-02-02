@@ -59,7 +59,7 @@ class GameViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     fun updateGame(game: Game) {
         gameName.text = game.name
         gameEditor.text = game.editor.toString()
-        gamePrice.text = "Prix: ${game.price} €"
+        gamePrice.text = "Prix: ${game.price}"
         Glide.with(itemView).load(game.image).into(gameImage)
         Glide.with(itemView).load(game.background).into(gameBackgroundImage)
     }
