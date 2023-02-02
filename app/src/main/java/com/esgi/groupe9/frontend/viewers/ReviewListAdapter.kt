@@ -37,12 +37,12 @@ class ReviewListAdapter(
 class ReviewViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
     private val reviewUsername = v.findViewById<TextView>(R.id.review_username)
-    private val UserReview = v.findViewById<TextView>(R.id.user_review)
+    private val reviewContent = v.findViewById<TextView>(R.id.user_review)
     private val ratingBar = v.findViewById<RatingBar>(R.id.rating_stars_review)
 
     fun updateDay(review: Review) {
         reviewUsername.text = review.username
-        UserReview.text = review.userReview
+        reviewContent.text = review.reviewContent
         ratingBar.rating = review.nbStars.toFloat()
     }
 }

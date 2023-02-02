@@ -14,13 +14,50 @@ object DummyData {
             aboutTheGame = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
             shortDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
             price = 10.00,
-            image = "drawable/destiny2_ps4.png",
-            background = "drawable/destiny_2_background.jpeg"
+            image = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/hero_capsule.jpg",
+            background = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg"
         )
 
+    val DUMMY_GAMES = listOf<Game>(
+        Game(
+            id = 1,
+            name = "Titan Fall",
+            editor = listOf("Nom de l'éditeur"),
+            detailedDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
+            aboutTheGame = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
+            shortDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
+            price = 10.00,
+            image = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/hero_capsule.jpg",
+            background = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg"
+        ),
+        Game(
+            id = 1,
+            name = "League of Legend",
+            editor = listOf("Nom de l'éditeur"),
+            detailedDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
+            aboutTheGame = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
+            shortDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
+            price = 10.00,
+            image = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/hero_capsule.jpg",
+            background = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg"
+        ),
+        Game(
+            id = 1,
+            name = "Attack on Titan",
+            editor = listOf("Nom de l'éditeur"),
+            detailedDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
+            aboutTheGame = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
+            shortDescription = "Lorem ipsum dolor sit amet. Et dolor culpa \nsit minima quia est nihil fuga sit facilis perspiciatis \nid perferendis vitae qui sunt modi eum excepturi accusantium.",
+            price = 10.00,
+            image = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/hero_capsule.jpg",
+            background = "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg"
+        ),
+    )
+
     val DUMMY_REVIEW = Review(
+        reviewId = "343",
         username = "Naruto",
-        userReview = "Bacon ipsum dolor amet rump doner brisket corned beef tri-tip. Burgdoggen t-bone leberkas, tri-tip bacon beef ribs...",
+        reviewContent = "Bacon ipsum dolor amet rump doner brisket corned beef tri-tip. Burgdoggen t-bone leberkas, tri-tip bacon beef ribs...",
         nbStars = 4.5
     )
 }
