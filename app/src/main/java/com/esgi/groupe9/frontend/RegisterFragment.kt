@@ -111,11 +111,10 @@ class RegisterFragment : Fragment() {
             val password = passwordEditText?.text.toString()
             // Check the validity of the parameters
             if (!checkInputRegister(email, password, username)) return@setOnClickListener
-
+            // Display gray blue bordure when password is editing
             passwordEditText.setOnClickListener {
                 passwordEditText.setBackgroundResource(R.color.gray_blue)
             }
-            
             // Create and save a new user using Firebase
             Log.d(TAG, "Try to register a User to the Firebase Authentication")
             Constants.FIREBASE_AUTH.createUserWithEmailAndPassword(email, password)
@@ -132,20 +131,18 @@ class RegisterFragment : Fragment() {
                     redirectOnLogin()
                 }
                 .addOnFailureListener {
-                    var passwordError = "${it.message}"
+                    var passwordMessageError = "${it.message}"
                     Log.d(TAG, "Failed to create user due to : ${it.message}")
 
-                    if(passwordError=="The given password is invalid. [ Password should be at least 6 characters ]"){
+                    if(passwordMessageError=="The given password is invalid. [ Password should be at least 6 characters ]"){
                        passwordEditText.setBackgroundResource(R.drawable.button_border_red)
-
                         val icon = resources.getDrawable(R.drawable.warning)
-
                         icon?.setBounds(
                             0, 0,
                             icon.intrinsicWidth,
                             icon.intrinsicHeight
                         )
-                        passwordEditText.setError("Password should be at least 6 characters", icon);
+                        passwordEditText.setError("The given password is invalid.", icon);
                     }
                 }
         }
