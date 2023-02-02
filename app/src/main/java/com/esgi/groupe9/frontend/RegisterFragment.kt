@@ -1,9 +1,9 @@
 package com.esgi.groupe9.frontend
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +11,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.esgi.groupe9.frontend.entity.User
 import com.esgi.groupe9.frontend.utils.Constants
+
 
 class RegisterFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +52,6 @@ class RegisterFragment : Fragment() {
                 registerButton.setTextColor(Color.GRAY)
             }
         }
-        // TODO: check when the password has been changed after the equality of both input
     }
 
     // Check if the inputs are validit and correct of the RegisterFragment
@@ -95,6 +96,7 @@ class RegisterFragment : Fragment() {
     }
 
     // Set button to signUn user
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun signUpUser(view: View) {
         val registerButton = view.findViewById<Button>(R.id.create_account_button)
 
@@ -105,11 +107,15 @@ class RegisterFragment : Fragment() {
         registerButton?.setOnClickListener {
             val username = view.findViewById<EditText>(R.id.username_input_register)?.text.toString()
             val email = view.findViewById<EditText>(R.id.email_input_register)?.text.toString()
-            val password = view.findViewById<EditText>(R.id.password_input_register)?.text.toString()
-
+            val passwordEditText = view.findViewById<EditText>(R.id.password_input_register)
+            val password = passwordEditText?.text.toString()
             // Check the validity of the parameters
             if (!checkInputRegister(email, password, username)) return@setOnClickListener
 
+            passwordEditText.setOnClickListener {
+                passwordEditText.setBackgroundResource(R.color.gray_blue)
+            }
+            
             // Create and save a new user using Firebase
             Log.d(TAG, "Try to register a User to the Firebase Authentication")
             Constants.FIREBASE_AUTH.createUserWithEmailAndPassword(email, password)
@@ -126,12 +132,21 @@ class RegisterFragment : Fragment() {
                     redirectOnLogin()
                 }
                 .addOnFailureListener {
+                    var passwordError = "${it.message}"
                     Log.d(TAG, "Failed to create user due to : ${it.message}")
-                    Toast.makeText(
-                        activity,
-                        "Failed to create user due to : ${it.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
+                    if(passwordError=="The given password is invalid. [ Password should be at least 6 characters ]"){
+                       passwordEditText.setBackgroundResource(R.drawable.button_border_red)
+
+                        val icon = resources.getDrawable(R.drawable.warning)
+
+                        icon?.setBounds(
+                            0, 0,
+                            icon.intrinsicWidth,
+                            icon.intrinsicHeight
+                        )
+                        passwordEditText.setError("Password should be at least 6 characters", icon);
+                    }
                 }
         }
     }
