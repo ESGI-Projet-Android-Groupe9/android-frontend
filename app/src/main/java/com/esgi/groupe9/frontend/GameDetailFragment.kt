@@ -116,6 +116,8 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         this.menu = menu
     }
 
+    // TODO : You can't click several times on the
+    //  Menu Item Like or Wished of GameDetailFragment check the behaviour
     // Set on Action of onSelect an option
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
