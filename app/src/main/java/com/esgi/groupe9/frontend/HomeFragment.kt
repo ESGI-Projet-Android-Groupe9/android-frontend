@@ -3,11 +3,8 @@ package com.esgi.groupe9.frontend
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -85,7 +82,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun setHomeGameRecycleView(view: View, navController: NavController){
+
         GlobalScope.launch(Dispatchers.Main) {
+            view.findViewById<ProgressBar>(R.id.progressbar).visibility = View.VISIBLE
+
             try {
                 // Get the games from the API Request
                 val gamesFromApi = withContext(Dispatchers.IO) { apiHelper.getGames() }
@@ -93,6 +93,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 // Get the first Most played game
                 val bestGame = gamesFromApi[0]
 
+                view.findViewById<ProgressBar>(R.id.progressbar).visibility = View.GONE
+                
                 // Fill the first Most played game information in the top of the home page
                 setFirstMostPlayedInfos(view, navController, bestGame)
 
@@ -133,7 +135,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(activity)
             adapter = GameListAdapter(games.subList(1, games.size), object : OnGameListener {
                 override fun onClicked(game: Game, position: Int) {
-                    // TODO remove Toast or not
                     Toast.makeText(
                         activity,
                         "Game $position clicked",
