@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,7 +22,6 @@ import com.esgi.groupe9.frontend.entity.User
 import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_AUTH
 import com.esgi.groupe9.frontend.utils.Constants.FIREBASE_FIRESTORE
 import com.esgi.groupe9.frontend.helper.ApiHelperImpl
-import com.esgi.groupe9.frontend.utils.DummyData
 import com.esgi.groupe9.frontend.utils.RetrofitBuilder
 import com.esgi.groupe9.frontend.viewers.OnReviewListener
 import com.esgi.groupe9.frontend.viewers.ReviewListAdapter
@@ -34,7 +32,8 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     private val apiHelper = ApiHelperImpl(RetrofitBuilder.apiService)
     private val args: GameDetailFragmentArgs by navArgs()
     lateinit var menu: Menu
-    private var isPresent: Boolean = false
+    private var isPresentInLikeList: Boolean = false
+    private var isPresentInWishList: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +52,8 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         setGameDetailsContent(view)
         // Check if the user had already the game in his LikeList.
         checkIfUserHadGameInLikesList()
+        // Check if the user had already the game in his Wishlist.
+        checkIfUserHadGameInWishList()
 
         return view
     }
@@ -151,10 +152,17 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.game_detail_like -> {
-                if (!isPresent) {
+                if (!isPresentInLikeList) {
                     addGameToLikeList(item)
                 } else {
                     removeGameToLikeList(item)
+                }
+            }
+            R.id.game_detail_favorite -> {
+                if (!isPresentInWishList) {
+                    addGameToWishList(item)
+                } else {
+                    removeGameTowishlist(item)
                 }
             }
         }
@@ -212,7 +220,7 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
                             )
                             menu.getItem(0).icon =
                                 context?.resources?.getDrawable(R.drawable.like_full)
-                            isPresent = true
+                            isPresentInLikeList = true
                         } else {
                             Log.d(
                                 TAG,
@@ -220,7 +228,43 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
                             )
                             menu.getItem(0).icon =
                                 context?.resources?.getDrawable(R.drawable.like)
-                            isPresent = false
+                            isPresentInLikeList = false
+                        }
+                    }
+                }
+            }
+    }
+
+    private fun checkIfUserHadGameInWishList() {
+        val userId = FIREBASE_AUTH.currentUser?.uid.toString()
+        val gameId = args.gameItem.id
+
+        FIREBASE_FIRESTORE
+            .collection("users")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val userSearched = document.toObject(User::class.java)
+                    val wishedGameList = userSearched.wishlist!!
+
+                    for (wishGame in wishedGameList) {
+                        if (gameId == wishGame.id) {
+                            Log.d(
+                                TAG,
+                                "User has already wished this game : ${wishGame.id.toString()}"
+                            )
+                            menu.getItem(1).icon =
+                                context?.resources?.getDrawable(R.drawable.whishlist_full)
+                            isPresentInWishList = true
+                        } else {
+                            Log.d(
+                                TAG,
+                                "User hasn't wished this game yet : ${wishGame.id.toString()}"
+                            )
+                            menu.getItem(1).icon =
+                                context?.resources?.getDrawable(R.drawable.whishlist)
+                            isPresentInWishList = false
                         }
                     }
                 }
@@ -238,7 +282,21 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
             .update("likesList", FieldValue.arrayUnion(game))
             .addOnSuccessListener {
                 item.icon = context?.resources?.getDrawable(R.drawable.like_full)
-                item.isEnabled = true
+            }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun addGameToWishList(item: MenuItem) {
+        val game = args.gameItem
+        val userId = FIREBASE_AUTH.currentUser?.uid.toString()
+
+        FIREBASE_FIRESTORE
+            .collection("users")
+            .document(userId)
+            .update("wishlist", FieldValue.arrayUnion(game))
+            .addOnSuccessListener {
+                menu.getItem(1).icon =
+                    context?.resources?.getDrawable(R.drawable.whishlist_full)
             }
     }
 
@@ -252,6 +310,19 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
             .update("likesList", FieldValue.arrayRemove(game))
             .addOnSuccessListener {
                 item.icon = context?.resources?.getDrawable(R.drawable.like)
+            }
+    }
+
+    private fun removeGameTowishlist(item: MenuItem) {
+        val game = args.gameItem
+        val userId = FIREBASE_AUTH.currentUser?.uid.toString()
+
+        FIREBASE_FIRESTORE
+            .collection("users")
+            .document(userId)
+            .update("wishlist", FieldValue.arrayRemove(game))
+            .addOnSuccessListener {
+                item.icon = context?.resources?.getDrawable(R.drawable.whishlist)
             }
     }
 

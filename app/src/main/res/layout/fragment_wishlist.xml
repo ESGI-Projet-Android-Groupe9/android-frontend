@@ -5,79 +5,92 @@
     android:layout_height="match_parent"
     tools:context=".WishlistFragment">
 
-<!--    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        android:id="@+id/wishlist_list_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:scrollbars="vertical"-->
-<!--        android:background="@color/dark_blue"/>-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/dark_blue">
+        android:background="@color/dark_blue"
+        android:orientation="vertical">
 
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="20dp"/>
-
-        <androidx.appcompat.widget.Toolbar
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/whishlist_toolbar"
+        <androidx.appcompat.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/wish_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/gray_blue"
             app:navigationIcon="@drawable/back"
             app:title="@string/my_wishlist"
             app:titleTextColor="@color/white"
-            android:background="@color/gray_blue"
             tools:ignore="MissingConstraints" />
-        
-        <ImageView
-            android:id="@+id/empty_wishlist_page_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:paddingTop="100dp"
-            android:foregroundGravity="center"
-            android:src="@drawable/whishlists"
-            app:layout_constraintTop_toBottomOf="@id/whishlist_toolbar"
-            app:layout_constraintLeft_toRightOf="@id/guidelineStart"
-            app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
 
-        <TextView
-            android:id="@+id/empty_wishlist_page_text1"
-            android:layout_width="wrap_content"
-            android:layout_height="50sp"
-            android:textColor="@color/white_gray"
-            android:text="@string/no_wishlist_content"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/empty_wishlist_page_icon"
-            app:layout_constraintLeft_toRightOf="@id/guidelineStart"
-            app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/wish_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/dark_blue"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toBottomOf="@id/wish_toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
-        <TextView
-            android:id="@+id/empty_wishlist_page_text2"
-            android:layout_width="wrap_content"
-            android:layout_height="30sp"
-            android:textColor="@color/white_gray"
-            android:text="@string/add_wishlist_message"
-            android:singleLine="false"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/empty_wishlist_page_text1"
-            app:layout_constraintLeft_toRightOf="@id/guidelineStart"
-            app:layout_constraintRight_toLeftOf="@id/guidelineEnd"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/empty_wish_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/dark_blue"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/wish_toolbar"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="20dp" />
+
+            <ImageView
+                android:id="@+id/empty_wish_page_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:foregroundGravity="center"
+                android:paddingTop="100dp"
+                android:src="@drawable/whishlists"
+                app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+                app:layout_constraintRight_toLeftOf="@id/guidelineEnd"
+                app:layout_constraintTop_toTopOf="@id/empty_wish_fragment" />
+
+            <TextView
+                android:id="@+id/empty_wish_page_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="50sp"
+                android:gravity="center"
+                android:text="@string/no_wishlist_content"
+                android:textColor="@color/white_gray"
+                app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+                app:layout_constraintRight_toLeftOf="@id/guidelineEnd"
+                app:layout_constraintTop_toBottomOf="@id/empty_wish_page_icon" />
+
+            <TextView
+                android:id="@+id/empty_wish_page_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="30sp"
+                android:gravity="center"
+                android:singleLine="false"
+                android:text="@string/add_wishlist_message"
+                android:textColor="@color/white_gray"
+                app:layout_constraintLeft_toRightOf="@id/guidelineStart"
+                app:layout_constraintRight_toLeftOf="@id/guidelineEnd"
+                app:layout_constraintTop_toBottomOf="@id/empty_wish_page_text1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
