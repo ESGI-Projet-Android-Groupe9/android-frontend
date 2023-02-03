@@ -90,7 +90,7 @@ class SearchGameFragment : Fragment() {
                         // Search the typed game name in all the games
                         for (i in games) {
                             // Add game in the found games
-                            if (i.name.contains(gameName)) {
+                            if (i.name?.contains(gameName) == true) {
                                 filteredList.add(i)
                             }
                         }

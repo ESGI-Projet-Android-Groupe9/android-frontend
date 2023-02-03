@@ -72,7 +72,7 @@ class GameDetailFragment : Fragment(R.layout.fragment_game_details) {
         gameDescriptionView.text = Html.fromHtml(game.detailedDescription)
 
         // Request from api and set Reviews in RecycleView
-        setReviewsRecycleView(gameReviewsRecyclerView, emptyReviewsText, game.id)
+        game.id?.let { setReviewsRecycleView(gameReviewsRecyclerView, emptyReviewsText, it) }
 
         // Show Description tab
         view.findViewById<Button>(R.id.button_description).setOnClickListener {
