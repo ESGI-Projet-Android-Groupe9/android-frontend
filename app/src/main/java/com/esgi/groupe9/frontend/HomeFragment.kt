@@ -171,9 +171,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(activity)
             adapter = GameListAdapter(games.subList(1, games.size), object : OnGameListener {
                 override fun onClicked(game: Game, position: Int) {
-                    Toast.makeText(
-                        activity, "Game $position clicked", Toast.LENGTH_SHORT
-                    ).show()
                     navController.navigate(
                         HomeFragmentDirections.actionHomeFragmentToGameDetailFragment(
                             game

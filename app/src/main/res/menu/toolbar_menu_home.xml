@@ -14,8 +14,6 @@
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/button_signout_home"
-        android:icon="@drawable/signout_button"
         android:title="@string/sign_out"
-        android:contentDescription="@string/Favorite"
-        app:showAsAction="ifRoom"/>
+        android:contentDescription="@string/Favorite" />
 </menu>
