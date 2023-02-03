@@ -83,8 +83,25 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     }
             }
             R.id.home_favorite -> {
-                // Navigate to wish list
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToWhishlistFragment())
+                var userFromWishList: User? = null
+                // Get User from the Database to send it to likes list to retrieve games
+                FIREBASE_FIRESTORE.collection("users")
+                    .whereEqualTo("userId", FIREBASE_AUTH.currentUser?.uid)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            userFromWishList = document.toObject(User::class.java)
+                        }
+                        // Navigate to Likes List and pass the user to retrieve info in the likes list page
+                        findNavController().navigate(
+                            HomeFragmentDirections.actionHomeFragmentToWhishlistFragment(
+                                userFromWishList
+                            )
+                        )
+                    }
+                    .addOnFailureListener {
+                        Log.d(TAG, it.message.toString())
+                    }
             }
             R.id.button_signout_home -> {
                 // Navigate to login page
